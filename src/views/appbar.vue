@@ -4,7 +4,6 @@
     color="primary"
     dark
     class="align-center">
-    Hello world
   </v-app-bar>
 </template>
 

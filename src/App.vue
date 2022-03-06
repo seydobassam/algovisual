@@ -1,16 +1,21 @@
 <template>
-  <GridView/>
+  <v-app>
+    <v-main>
+      <Appbar />
+      <GridView />
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-
-import GridView from "/src/views/gridView.vue";
-
+import Appbar from "./views/appbar.vue";
+import GridView from "./views/gridView.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    GridView
+    Appbar,
+    GridView,
   },
-}
+};
 </script>
