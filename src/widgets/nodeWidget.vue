@@ -35,7 +35,7 @@ export default {
 <style>
 .node {
   width: 30px;
-  height: 32px;
+  height: 30px;
   outline: 1px solid rgb(175, 216, 248);
 }
 
