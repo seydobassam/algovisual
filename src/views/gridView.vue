@@ -35,6 +35,6 @@ import pathfindingGrid from "../modules/pathfindingGrid";
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: 80px;
+  margin-top: 90px;
 }
 </style>
