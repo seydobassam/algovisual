@@ -1,4 +1,3 @@
-<script>
 export default class Node {
   constructor (nodeID, type) {
         this.nodeID = nodeID;
@@ -11,4 +10,3 @@ export default class Node {
         this.previousNode = null;
     }    
 }
-</script>

@@ -12,26 +12,20 @@
 
 <script>
 import NodeWidget from "../widgets/nodeWidget.vue";
-import {useStore} from "vuex";
-import {computed} from '@vue/runtime-core';
-import {onMounted} from 'vue'
+import pathfindingGrid from "../modules/pathfindingGrid";
 
-
-export default {
+ export default {
   name: "GridView",
   components: {
     NodeWidget,
   },
 
   setup() {
-    const store = useStore();
-    const gridData = computed(()=> store.state.gridData);
+    const {gridNodesState, createGridNodes} = pathfindingGrid()
 
-    onMounted(() => {
-      store.commit('createGrid');
-    })
+    createGridNodes();
 
-    return {gridData}
+    return {...gridNodesState}
   },
 };
 </script>
@@ -40,9 +34,7 @@ export default {
 .grid-container {
   display: flex;
   justify-content: center;
-}
-
-.grid {
-  margin: 100px 0 0;
+  width: 100%;
+  margin-top: 50px;
 }
 </style>

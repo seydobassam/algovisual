@@ -1,9 +1,9 @@
 <template>
   <div
-    @mousedown="onMouseDown(nodeProp, $event)"
-    @mouseup="onMouseUp($event)"
-    @mouseenter="onMouseEnter(nodeProp, $event)"
-    @mouseleave="onMouseLeave(nodeProp, $event)"
+    @mousedown.prevent="onMouseDown(nodeProp)"
+    @mouseenter.prevent="onMouseEnter(nodeProp)"
+    @mouseleave.prevent="onMouseLeave(nodeProp)"
+    @mouseup.prevent="onMouseUp()"
     class="node"
     v-bind:class="{
       'node-start': nodeProp.type === 'start',
@@ -14,10 +14,8 @@
 </template>
 
 <script>
-import { useStore } from "vuex";
-import { computed } from "vue";
+import node from "../modules/node";
 
-// FIXME: Refactor below code
 export default {
   name: "nodeWidget",
   props: {
@@ -27,39 +25,9 @@ export default {
   },
 
   setup() {
-    const store = useStore();
-    const isMouseEvent = computed(() => store.state.isMouseEvent);
-    const currentNodeType = computed(() => store.state.selectedNodeType);
+    const { onMouseDown, onMouseEnter, onMouseLeave, onMouseUp } = node();
 
-    function onMouseDown(node, event) {
-      event.preventDefault();
-      if (isMouseEvent.value === false) {
-        store.commit("triggerMouse", true);
-        store.commit("setSelectedNodeType", node.type);
-        store.commit("onMouseDown", node);
-      }
-    }
-
-    function onMouseEnter(node, event) {
-      event.preventDefault();
-      if (isMouseEvent.value) {
-        store.commit("onMouseEnter", {currentNode: node, newType: currentNodeType.value});
-      }
-    }
-
-    function onMouseLeave(pervNode, event) {
-      event.preventDefault();
-      if (isMouseEvent.value) {
-        store.commit("onMouseLeave", pervNode);
-      }
-    }
-
-    function onMouseUp(event) {
-      event.preventDefault();
-      store.commit("triggerMouse", false);
-    }
-
-    return { onMouseDown, onMouseUp, onMouseEnter, onMouseLeave };
+    return { onMouseDown, onMouseEnter, onMouseLeave, onMouseUp };
   },
 };
 </script>
@@ -67,7 +35,7 @@ export default {
 <style>
 .node {
   width: 30px;
-  height: 30px;
+  height: 35px;
   outline: 1px solid rgb(175, 216, 248);
 }
 
