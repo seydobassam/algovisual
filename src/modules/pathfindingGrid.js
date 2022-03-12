@@ -9,8 +9,8 @@ const state = reactive({
 export default function pathfindingGrid() {
    const createGridNodes = () => {
     const currentGrid = [];
-    let height = Math.floor(window.outerHeight / 36);
-    let width = Math.floor(window.outerWidth / 37);
+    let height = Math.floor(window.outerHeight / 40);
+    let width = Math.floor(window.outerWidth / 31);
     for (let r = 0; r < height; r++) {
       let arrayRows = [];
       for (let c = 0; c < width; c++) {
