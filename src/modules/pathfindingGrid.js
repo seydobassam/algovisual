@@ -29,7 +29,6 @@ export default function pathfindingGrid() {
       }
       currentGrid.push(arrayRows);
     }
-    console.log(currentGrid);
     state.gridData = currentGrid;
   };
 

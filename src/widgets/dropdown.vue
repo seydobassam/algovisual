@@ -1,28 +1,86 @@
 <template>
-  <div class="dropdown-container">
+  <div class="dropdown-container" v-click-outside="() => closeDropdown()">
     <div class="sec-center">
-      <input class="dropdown" type="checkbox" id="dropdown" name="dropdown" />
-      <label class="for-dropdown" for="dropdown">
-        <div>Algorthim Types</div>
+      <input
+        :checked="isChecked"
+        class="dropdown"
+        type="checkbox"
+        name="dropdown"
+      />
+      <label @click="onDropdown()" class="for-dropdown" for="dropdown">
+        <div>{{ title }}</div>
         <i class="uil uil-arrow-down"></i>
       </label>
-      <div class="section-dropdown">
-        <a href="#">Pathfinding Algorthims <i class="uil uil-arrow-right"></i></a>
-        <a href="#">Search Algorthims <i class="uil uil-arrow-right"></i></a>
-        <a href="#">Sort Algorthims <i class="uil uil-arrow-right"></i></a>
+      <div
+        class="section-dropdown"
+        v-bind:class="{ 'section-display': isChecked }"
+      >
+        <a
+          class="selection"
+          v-for="(selection, index) in selections"
+          :key="index"
+          @click="onSelect(selection)"
+          :class="{ 'active-selection': selection.id === selectedId }"
+          >{{ selection.name }} <i class="uil uil-arrow-right"></i
+        ></a>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import dropdown from "../modules/dropdown";
+import { watch } from "vue";
+
 export default {
   name: "Dropdown",
+  props: {
+    title: {
+      type: String,
+    },
+    selections: {
+      type: [Object],
+      required: true,
+    },
+  },
+  emits: ["select"],
+  setup(props) {
+    const { dropdownState, setSelectedId, onDropdown, closeDropdown, onSelect } = dropdown();
+
+    watch(
+      () => props.selections,
+      (updatedProps) => {
+        setSelectedId(updatedProps[0]);
+      }
+    );
+
+    setSelectedId(props.selections[0]);
+
+    return {
+      ...dropdownState,
+      onDropdown,
+      closeDropdown,
+      onSelect,
+    };
+  },
 };
 </script>
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap");
+
+.active-selection {
+  color: #102770;
+  background-color: #ffeba7;
+}
+
+.selection {
+  float: left;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
 
 .dropdown-container {
   display: flex;
@@ -127,7 +185,7 @@ export default {
   position: relative;
   font-family: "Roboto", sans-serif;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 2;
   height: 50px;
   transition: all 200ms linear;
@@ -158,32 +216,7 @@ export default {
   color: #ffeba7;
   box-shadow: 0 12px 35px 0 rgba(16, 39, 112, 0.25);
 }
-.dropdown:checked + label:before,
-.dropdown:not(:checked) + label:before {
-  position: fixed;
-  top: 0;
-  left: 0;
-  content: "";
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  cursor: auto;
-  pointer-events: none;
-}
-.dropdown:checked + label:before {
-  pointer-events: auto;
-}
-.dropdown:not(:checked) + label .uil {
-  font-size: 24px;
-  margin-left: 10px;
-  transition: transform 200ms linear;
-}
-.dropdown:checked + label .uil {
-  transform: rotate(180deg);
-  font-size: 24px;
-  margin-left: 10px;
-  transition: transform 200ms linear;
-}
+
 .section-dropdown {
   position: absolute;
   padding: 5px;
@@ -198,17 +231,17 @@ export default {
   z-index: 2;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(20px);
+  transform: translateY(-15px);
   transition: all 200ms linear;
+}
+.section-display {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 .dark-light:checked ~ .sec-center .section-dropdown {
   background-color: #fff;
   box-shadow: 0 14px 35px 0 rgba(9, 9, 12, 0.15);
-}
-.dropdown:checked ~ .section-dropdown {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
 }
 .section-dropdown:before {
   position: absolute;
@@ -267,6 +300,7 @@ a {
 a:hover {
   color: #102770;
   background-color: #ffeba7;
+  cursor: pointer;
 }
 .dark-light:checked ~ .sec-center .section-dropdown a:hover {
   color: #ffeba7;
