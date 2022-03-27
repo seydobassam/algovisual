@@ -3,19 +3,22 @@
     <div class="title">Algovirtual</div>
     <div class="dropdown-container">
       <Dropdown
+        class="dropdown"
         @select="setAlgoType($event)"
-        :title="'Algorithm Types '"
+        :title="selectedAlgoType.name"
         :selections="algorithmsTypes"
       />
       <Dropdown
+        class="dropdown"
         @select="setAlgo($event)"
-        :title="'Algorithms'"
-        :selections="algoTypeSelection.algorithms"
+        :title="selectedAlgo.name"
+        :selections="selectedAlgoType.algorithms"
       />
       <Dropdown
+        class="dropdown"
         @select="setView($event)"
-        :title="'Views'"
-        :selections="algoTypeSelection.virtualViews"
+        :title="selectedView.name"
+        :selections="selectedAlgoType.virtualViews"
       />
     </div>
   </div>
@@ -44,7 +47,6 @@ export default {
       setAlgoType,
       setAlgo,
       setView,
-      close,
     };
   },
 };
@@ -58,6 +60,9 @@ body {
 
 .topnav {
   background-color: #333;
+  height: 60px;
+  display: flex;
+  align-items: center;
 }
 
 .title {
@@ -71,5 +76,13 @@ body {
 
 .dropdown-container {
   display: flex;
+}
+
+.dropdown-container .Dropdown {
+  margin-left: 10px;
+}
+
+.dropdown {
+  margin-left: 10px;
 }
 </style>

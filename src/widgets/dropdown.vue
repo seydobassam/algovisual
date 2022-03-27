@@ -72,7 +72,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap");
 
 .active-selection {
@@ -195,7 +195,6 @@ export default {
   line-height: 2;
   height: 50px;
   transition: all 200ms linear;
-  border-radius: 4px;
   width: 220px;
   letter-spacing: 1px;
   display: -webkit-inline-flex;
@@ -224,12 +223,13 @@ export default {
 }
 
 .section-dropdown {
+  margin-top: 10px;
   position: absolute;
   padding: 5px;
   background-color: #111;
   top: 60px;
   left: 0;
-  width: -webkit-fill-available;
+  width: max-content;;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
@@ -271,7 +271,7 @@ export default {
   content: "";
   display: block;
   z-index: 2;
-  transition: all 200ms linear;
+  transition: all 70ms linear;
 }
 .dark-light:checked ~ .sec-center .section-dropdown:after {
   border-bottom: 8px solid #fff;

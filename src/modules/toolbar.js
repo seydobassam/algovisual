@@ -1,22 +1,22 @@
 import { reactive, toRefs } from "@vue/reactivity";
 
 const state = reactive({
-  algoTypeSelection: Object,
-  selectedAlgoId: String,
-  selectedViewKey: String,
+  selectedAlgoType: Object,
+  selectedAlgo: Object,
+  selectedView: Object,
 });
 
 export default function toolbar() {
   function setAlgoType(algoType) {
-    state.algoTypeSelection = algoType;
+    state.selectedAlgoType = algoType;
     setAlgo(algoType.algorithms[0]);
     setView(algoType.virtualViews[0]);
   }
   function setAlgo(algo) {
-    state.selectedAlgoId = algo.id;
+    state.selectedAlgo = algo;
   }
   function setView(view) {
-    state.selectedViewKey = view.key;
+    state.selectedView = view;
   }
 
   return {
