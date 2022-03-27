@@ -14,7 +14,7 @@
         @select="setAlgo($event)"
         :title="selectedAlgo.name"
         :selections="selectedAlgoType.algorithms"
-        :width="'200px'"
+        :width="'220px'"
       />
       <Dropdown
         class="dropdown"
