@@ -7,7 +7,7 @@
         type="checkbox"
         name="dropdown"
       />
-      <label @click="onDropdown()" class="for-dropdown" for="dropdown">
+      <label @click="onDropdown()" class="for-dropdown" for="dropdown" v-bind:class="{'hover': isChecked}">
         <div>{{ title }}</div>
         <i class="uil uil-arrow-down"></i>
       </label>
@@ -42,16 +42,15 @@ export default {
       type: [Object],
       required: true,
     },
+    width: {
+      type: String,
+      default: "160px",
+    }
   },
   emits: ["select"],
   setup(props) {
-    const {
-      dropdownState,
-      setSelectedId,
-      onDropdown,
-      hideDropdown,
-      onSelect,
-    } = dropdown();
+    const { dropdownState, setSelectedId, onDropdown, hideDropdown, onSelect } =
+      dropdown();
 
     watch(
       () => props.selections,
@@ -116,7 +115,7 @@ export default {
   width: 46px;
   height: 46px;
   cursor: pointer;
-  transition: all 200ms linear;
+  transition: all 100ms linear;
   box-shadow: 0 0 25px rgba(255, 235, 167, 0.45);
 }
 .dark-light:checked + label {
@@ -195,7 +194,7 @@ export default {
   line-height: 2;
   height: 50px;
   transition: all 200ms linear;
-  width: 220px;
+  width: v-bind(width);
   letter-spacing: 1px;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -211,11 +210,18 @@ export default {
   -ms-flex-pack: center;
   text-align: center;
   border: none;
-  background-color: #ffeba7;
   cursor: pointer;
-  color: #102770;
-  box-shadow: 0 12px 35px 0 rgba(255, 235, 167, 0.15);
 }
+
+.dropdown:not(:checked) + label {
+  color: white;
+}
+
+.hover {
+  background-color: #ffeba7;
+  color: #102770;
+}
+
 .dark-light:checked ~ .sec-center .for-dropdown {
   background-color: #102770;
   color: #ffeba7;
@@ -229,7 +235,7 @@ export default {
   background-color: #111;
   top: 60px;
   left: 0;
-  width: max-content;;
+  width: max-content;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
@@ -240,6 +246,7 @@ export default {
   transform: translateY(-15px);
   transition: all 200ms linear;
 }
+
 .section-display {
   opacity: 1;
   pointer-events: auto;

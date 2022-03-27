@@ -7,18 +7,21 @@
         @select="setAlgoType($event)"
         :title="selectedAlgoType.name"
         :selections="algorithmsTypes"
+        :width="'150px'"
       />
       <Dropdown
         class="dropdown"
         @select="setAlgo($event)"
         :title="selectedAlgo.name"
         :selections="selectedAlgoType.algorithms"
+        :width="'200px'"
       />
       <Dropdown
         class="dropdown"
         @select="setView($event)"
         :title="selectedView.name"
         :selections="selectedAlgoType.virtualViews"
+        :width="'180px'"
       />
     </div>
   </div>
