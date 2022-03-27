@@ -1,3 +1,4 @@
+// FIXME: [bs] I have created an NPM pakage that can be used instead of this 
 export const clickOutside = {
   beforeMount(el, binding) {
     el.clickOutsideEvent = (evt) => {
