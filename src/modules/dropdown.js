@@ -13,13 +13,13 @@ export default function dropdown() {
     state.isChecked = !state.isChecked;
   }
 
-  function closeDropdown() {
+  function hideDropdown() {
     state.isChecked = false;
   }
 
   function onSelect(selection) {
     setSelectedId(selection);
-    closeDropdown();
+    hideDropdown();
     emit("select", selection);
   }
 
@@ -32,7 +32,7 @@ export default function dropdown() {
   return {
     dropdownState: toRefs(state),
     onDropdown,
-    closeDropdown,
+    hideDropdown,
     onSelect,
     setSelectedId,
   };

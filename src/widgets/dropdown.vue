@@ -1,5 +1,5 @@
 <template>
-  <div class="dropdown-container" v-click-outside="() => closeDropdown()">
+  <div class="dropdown-container" v-click-outside="() => hideDropdown()">
     <div class="sec-center">
       <input
         :checked="isChecked"
@@ -45,7 +45,13 @@ export default {
   },
   emits: ["select"],
   setup(props) {
-    const { dropdownState, setSelectedId, onDropdown, closeDropdown, onSelect } = dropdown();
+    const {
+      dropdownState,
+      setSelectedId,
+      onDropdown,
+      hideDropdown,
+      onSelect,
+    } = dropdown();
 
     watch(
       () => props.selections,
@@ -59,7 +65,7 @@ export default {
     return {
       ...dropdownState,
       onDropdown,
-      closeDropdown,
+      hideDropdown,
       onSelect,
     };
   },
