@@ -1,13 +1,13 @@
 import { reactive, toRefs } from "@vue/reactivity";
 import Node from "../models/node-model";
 
-
 const state = reactive({
   gridData: [],
 });
 
 export default function pathfindingGrid() {
-   const createGridNodes = () => {
+  // FIXME: refactor createGrid Nodes function, better name and single responsibility principle, and read step down
+  const createGridNodes = () => {
     const currentGrid = [];
     let height = Math.floor(window.outerHeight / 37);
     let width = Math.floor(window.outerWidth / 31);
