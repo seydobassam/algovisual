@@ -17,7 +17,7 @@
 import node from "../modules/node";
 
 export default {
-  name: "nodeWidget",
+  name: "node",
   props: {
     nodeProp: {
       type: [Object],

@@ -5,10 +5,10 @@
 
 <script>
 import Toolbar from "./views/toolbar.vue";
-import GridView from "./views/algo-views/gridView.vue";
+import GridView from "./views/gridView.vue";
 
 export default {
-  name: "App",
+  name: "home",
   components: {
     Toolbar,
     GridView,

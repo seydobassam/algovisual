@@ -4,7 +4,7 @@
       <div class="grid-view">
         <tr class="trs" v-for="(record, rowIndex) in gridData" :key="rowIndex">
           <td v-for="(col, index) in record" :key="index">
-            <NodeWidget :nodeProp="col"> </NodeWidget>
+            <Node :nodeProp="col"> </Node>
           </td>
         </tr>
       </div>
@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import NodeWidget from "../widgets/nodeWidget.vue";
-import pathfindingGrid from "../modules/pathfindingGrid";
+import Node from "../../widgets/node.vue";
+import pathfindingGrid from "../../modules/pathfindingGrid";
 
 export default {
   name: "GridView",
   components: {
-    NodeWidget,
+    Node,
   },
 
   setup() {
