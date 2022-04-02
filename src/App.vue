@@ -1,17 +1,17 @@
 <template>
   <Toolbar />
-  <GridView />
+  <Grid />
 </template>
 
 <script>
 import Toolbar from "./views/toolbar.vue";
-import GridView from "./views/algo-views/gridView.vue";
+import Grid from "./views/virtual-views/pathfinding-views/grid.vue";
 
 export default {
   name: "App",
   components: {
     Toolbar,
-    GridView,
+    Grid,
   },
 };
 </script>

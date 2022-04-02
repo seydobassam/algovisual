@@ -17,7 +17,7 @@ import Node from "../../../widgets/node.vue";
 import pathfindingGrid from "../../../modules/pathfindingGrid";
 
 export default {
-  name: "GridView",
+  name: "Grid",
   components: {
     Node,
   },
