@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import Node from "../../widgets/node.vue";
-import pathfindingGrid from "../../modules/pathfindingGrid";
+import Node from "../../../widgets/node.vue";
+import pathfindingGrid from "../../../modules/pathfindingGrid";
 
 export default {
   name: "GridView",
