@@ -11,6 +11,7 @@ const state = reactive({
 export default function node() {
   const { gridNodesState } = pathfindingGrid()
 
+  // FIXME: below functions should be refactored
   const onMouseDown = (currentNode) => {
     state.isMouseEvent = true
     setSelectedNodeType(currentNode.type);
