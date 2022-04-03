@@ -14,7 +14,7 @@
 
 <script>
 import Node from "../../../widgets/node.vue";
-import pathfindingGrid from "../../../modules/pathfindingGrid";
+import pathfindingGrid from "../../../modules/views-modules/virtual-view-modules/pathfindingGrid";
 
 export default {
   name: "Grid",

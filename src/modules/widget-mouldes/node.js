@@ -1,6 +1,6 @@
 import { reactive } from '@vue/reactivity';
-import pathfindingGrid from './pathfindingGrid';
-import Node from "../models/node-model";
+import pathfindingGrid from '../views-modules/virtual-view-modules/pathfindingGrid';
+import Node from "../../models/node-model";
 
 const state = reactive({
   isMouseEvent: false,

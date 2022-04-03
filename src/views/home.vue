@@ -1,5 +1,6 @@
 <template>
   <Toolbar />
+  <!-- <component :is="selectedComponent" /> -->
   <GridView />
 </template>
 

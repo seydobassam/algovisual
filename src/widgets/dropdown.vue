@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import dropdown from "../modules/dropdown";
+import dropdown from "../modules/widget-mouldes/dropdown";
 import { watch } from "vue";
 
 export default {

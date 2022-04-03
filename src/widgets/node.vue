@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import node from "../modules/node";
+import node from "../modules/widget-mouldes/node.js";
 
 export default {
   name: "node",

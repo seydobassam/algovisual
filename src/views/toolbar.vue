@@ -25,9 +25,9 @@
 </template>
 
 <script>
-import toolbar from "../modules/toolbar";
+import toolbar from "../modules/views-modules/toolbar.js";
 import Dropdown from "../widgets/dropdown.vue";
-import { dropdownData } from "../data/dropdownData";
+import { dropdownData } from "../data/dropdownData.js";
 
 export default {
   name: "Toolbar",
