@@ -6,7 +6,7 @@ export default function dropdown() {
 
   const state = reactive({
     isChecked: false,
-    selectedId: Boolean,
+    selection: Object,
   });
 
   function onDropdown() {
@@ -18,15 +18,13 @@ export default function dropdown() {
   }
 
   function onSelect(selection) {
-    setSelectedId(selection);
+    setSelection(selection);
     hideDropdown();
     emit("select", selection);
   }
 
-  function setSelectedId(selection) {
-    if (selection && selection.id !== state.selectedId) {
-      state.selectedId = selection.id;
-    }
+  function setSelection(selection) {
+    state.selection = selection;
   }
 
   return {
@@ -34,6 +32,6 @@ export default function dropdown() {
     onDropdown,
     hideDropdown,
     onSelect,
-    setSelectedId,
+    setSelection,
   };
 }

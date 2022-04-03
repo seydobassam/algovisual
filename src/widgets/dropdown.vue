@@ -8,7 +8,7 @@
         name="dropdown"
       />
       <label @click="onDropdown()" class="for-dropdown" for="dropdown" v-bind:class="{'hover': isChecked}">
-        <div>{{ title }}</div>
+        <div>{{ title ? title : selection.name }}</div>
         <i class="uil uil-arrow-down"></i>
       </label>
       <div
@@ -17,10 +17,10 @@
       >
         <a
           class="selection"
-          v-for="(selection, index) in selections"
+          v-for="(selectOption, index) in selections"
           :key="index"
-          @click="onSelect(selection)"
-          :class="{ 'active-selection': selection.id === selectedId }"
+          @click="onSelect(selectOption)"
+          :class="{ 'active-selection': selectOption.id === selection.id}"
           >{{ selection.name }} <i class="uil uil-arrow-right"></i
         ></a>
       </div>
@@ -49,17 +49,17 @@ export default {
   },
   emits: ["select"],
   setup(props) {
-    const { dropdownState, setSelectedId, onDropdown, hideDropdown, onSelect } =
+    const { dropdownState, setSelection, onDropdown, hideDropdown, onSelect } =
       dropdown();
 
     watch(
       () => props.selections,
       (updatedProps) => {
-        setSelectedId(updatedProps[0]);
+        setSelection(updatedProps[0]);
       }
     );
 
-    setSelectedId(props.selections[0]);
+    setSelection(props.selections[0]);
 
     return {
       ...dropdownState,
