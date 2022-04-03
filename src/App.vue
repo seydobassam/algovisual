@@ -1,17 +1,14 @@
 <template>
-  <Toolbar />
-  <Grid />
+  <Home />
 </template>
 
 <script>
-import Toolbar from "./views/toolbar.vue";
-import Grid from "./views/virtual-views/pathfinding/grid.vue";
+import Home from "./views/home.vue";
 
 export default {
   name: "App",
   components: {
-    Toolbar,
-    Grid,
+    Home,
   },
 };
 </script>

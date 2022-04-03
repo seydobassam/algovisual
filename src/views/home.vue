@@ -4,11 +4,11 @@
 </template>
 
 <script>
-import Toolbar from "./views/toolbar.vue";
-import GridView from "./views/gridView.vue";
+import Toolbar from "./toolbar.vue";
+import GridView from "./virtual-views/pathfinding/grid.vue";
 
 export default {
-  name: "home",
+  name: "Home",
   components: {
     Toolbar,
     GridView,
