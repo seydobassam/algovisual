@@ -1,6 +1,8 @@
 <template>
   <Toolbar />
-  <component :is="selectedVirtualView.component" />
+  <keep-alive>
+    <component :is="selectedVirtualView.component" />
+  </keep-alive> 
 </template>
 
 <script>
