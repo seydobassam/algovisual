@@ -21,7 +21,7 @@
           :key="index"
           @click="onSelect(selectOption)"
           :class="{ 'active-selection': selectOption.id === selection.id}"
-          >{{ selection.name }} <i class="uil uil-arrow-right"></i
+          >{{ selectOption.name }} <i class="uil uil-arrow-right"></i
         ></a>
       </div>
     </div>
