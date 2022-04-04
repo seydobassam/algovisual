@@ -1,5 +1,6 @@
 <template>
-  <div class="grid-container">
+  <Loading :loading="isLoading" />
+  <div class="grid-container" v-if="!isLoading">
     <div class="grid">
       <div class="grid-view">
         <tr class="trs" v-for="(record, rowIndex) in gridData" :key="rowIndex">
@@ -14,20 +15,23 @@
 
 <script>
 import Node from "../../../widgets/node.vue";
+import Loading from "../../../widgets/loading.vue";
 import pathfindingGrid from "../../../modules/views-modules/virtual-view-modules/pathfindingGrid";
 
 export default {
   name: "Grid",
   components: {
     Node,
+    Loading,
   },
 
   setup() {
-    const { gridNodesState, createGridNodes } = pathfindingGrid();
+    const { gridNodesState, isLoading, createGridNodes, stopLoading } = pathfindingGrid();
 
     createGridNodes();
+    stopLoading();
 
-    return { ...gridNodesState };
+    return { ...gridNodesState, isLoading };
   },
 };
 </script>
