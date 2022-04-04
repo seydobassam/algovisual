@@ -31,8 +31,13 @@ export const dropdownData = [
       virtualViews: [
         {
           id: "1",
-          key: "charactersSortView",
+          component: "Grid",
           name: "Pathfinding Grid",
+        },
+        {
+          id: "2",
+          component: "List",
+          name: "List",
         },
       ],
     },
@@ -60,7 +65,7 @@ export const dropdownData = [
       virtualViews: [
         {
           id: "1",
-          key: "searchGridView",
+          component: "searchGridView",
           name: "Search Grid",
         },
       ],
@@ -93,7 +98,7 @@ export const dropdownData = [
       virtualViews: [
         {
           id: "1",
-          key: "charactersSortView",
+          component: "charactersSortView",
           name: "Characters",
         },
       ],

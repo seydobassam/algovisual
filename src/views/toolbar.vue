@@ -4,19 +4,19 @@
     <div class="dropdown-container">
       <Dropdown
         class="dropdown"
-        @select="setAlgoType($event)"
+        @select="setDropdownSelections($event)"
         :selections="algorithmsTypes"
         :width="'150px'"
       />
       <Dropdown
         class="dropdown"
-        @select="setAlgo($event)"
+        @select="setAlgorthim($event)"
         :selections="selectedAlgoType.algorithms"
         :width="'220px'"
       />
       <Dropdown
         class="dropdown"
-        @select="setView($event)"
+        @select="setVirtualView($event)"
         :selections="selectedAlgoType.virtualViews"
         :width="'180px'"
       />
@@ -36,17 +36,16 @@ export default {
   },
   setup() {
     const algorithmsTypes = dropdownData;
-    const { toolbarState, setAlgoType, setAlgo, setView } = toolbar();
+    const { toolbarState, setDropdownSelections, setAlgorthim, setVirtualView } = toolbar();
 
-    // set First algorithm type object
-    setAlgoType(algorithmsTypes[0]);
+    setDropdownSelections(algorithmsTypes[0]);
 
     return {
       ...toolbarState,
       algorithmsTypes,
-      setAlgoType,
-      setAlgo,
-      setView,
+      setDropdownSelections,
+      setAlgorthim,
+      setVirtualView,
     };
   },
 };

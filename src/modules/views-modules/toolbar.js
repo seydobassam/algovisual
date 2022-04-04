@@ -1,28 +1,29 @@
 import { reactive, toRefs } from "@vue/reactivity";
+import home from "./home";
 
 const state = reactive({
   selectedAlgoType: Object,
-  selectedAlgo: Object,
-  selectedView: Object,
 });
 
+// SOLID Pricple: Single Responsibility-Principle is used in this module.
+// And One level of abstraction, plus step down
 export default function toolbar() {
-  function setAlgoType(algoType) {
-    state.selectedAlgoType = algoType;
-    setAlgo(algoType.algorithms[0]);
-    setView(algoType.virtualViews[0]);
+  const { setAlgorthim, setVirtualView } = home();
+
+  function setDropdownSelections(algorithmType) {
+    setAlgorithmType(algorithmType);
+    setAlgorthim(algorithmType.algorithms[0]);
+    setVirtualView(algorithmType.virtualViews[0]);
   }
-  function setAlgo(algo) {
-    state.selectedAlgo = algo;
-  }
-  function setView(view) {
-    state.selectedView = view;
+
+  function setAlgorithmType(algorithmType) {
+    state.selectedAlgoType = algorithmType;
   }
 
   return {
     toolbarState: toRefs(state),
-    setAlgoType,
-    setAlgo,
-    setView,
+    setDropdownSelections,
+    setAlgorthim,
+    setVirtualView,
   };
 }
