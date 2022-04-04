@@ -36,8 +36,8 @@ export const dropdownData = [
         },
         {
           id: "2",
-          component: "List",
-          name: "List",
+          component: "GridView",
+          name: "Grid View",
         },
       ],
     },
@@ -65,8 +65,8 @@ export const dropdownData = [
       virtualViews: [
         {
           id: "1",
-          component: "searchGridView",
-          name: "Search Grid",
+          component: "List",
+          name: "Search List",
         },
       ],
     },
