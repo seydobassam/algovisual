@@ -1,13 +1,19 @@
 <template>
-  <div>
-    <div class="square-index">2</div>
-    <div class="square">1</div>
+  <div class="square" v-bind:class="{ 'visited-square': square.visited }">
+    <span>{{ square.index }}</span>
   </div>
 </template>
 
 <script>
+import Square from "../models/square-model";
+
 export default {
   name: "Square",
+  props: {
+    square: {
+      type: Square,
+    },
+  },
 };
 </script>
 
@@ -17,8 +23,8 @@ export default {
 }
 
 .square {
-  height: 75px;
-  width: 75px;
+  height: 125px;
+  width: 125px;
   font-size: larger;
   color: white;
   background-color: rgb(77, 77, 77);
@@ -26,5 +32,15 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.square:hover {
+  cursor: pointer;
+  background: cornflowerblue;
+}
+
+.visited-square {
+  color: rgb(77, 77, 77);
+  background: deepskyblue;
 }
 </style>
