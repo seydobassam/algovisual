@@ -56,7 +56,6 @@ export default {
 }
 
 .grid-view {
-  width: 96.6%;
   margin: auto;
 }
 </style>
