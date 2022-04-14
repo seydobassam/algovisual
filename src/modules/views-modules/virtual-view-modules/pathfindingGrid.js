@@ -11,8 +11,8 @@ export default function pathfindingGrid() {
   // FIXME: refactor createGrid Nodes function, better name and single responsibility principle, and read step down
   function createGridNodes() {
     const currentGrid = [];
-    let height = Math.floor(window.outerHeight / 37);
-    let width = Math.floor(window.outerWidth / 31);
+    let height = Math.floor(window.innerHeight / 37);
+    let width = Math.floor(window.innerWidth / 31);
     for (let r = 0; r < height; r++) {
       let arrayRows = [];
       for (let c = 0; c < width; c++) {
