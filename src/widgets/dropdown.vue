@@ -7,8 +7,13 @@
         type="checkbox"
         name="dropdown"
       />
-      <label @click="onDropdown()" class="for-dropdown" for="dropdown" v-bind:class="{'hover': isChecked}">
-        <div>{{ title ? title : selection.name }}</div>
+      <label
+        @click="onDropdown()"
+        class="for-dropdown"
+        for="dropdown"
+        v-bind:class="{ hover: isChecked }"
+      >
+        <div class="selection-name">{{ title ? title : selection.name }}</div>
         <i class="uil uil-arrow-down"></i>
       </label>
       <div
@@ -20,7 +25,7 @@
           v-for="(selectOption, index) in selections"
           :key="index"
           @click="onSelect(selectOption)"
-          :class="{ 'active-selection': selectOption.id === selection.id}"
+          :class="{ 'active-selection': selectOption.id === selection.id }"
           >{{ selectOption.name }} <i class="uil uil-arrow-right"></i
         ></a>
       </div>
@@ -44,8 +49,12 @@ export default {
     },
     width: {
       type: String,
-      default: "160px",
-    }
+      default: "100%",
+    },
+    dropdownContentWidth: {
+      type: String,
+      default: "max-content",
+    },
   },
   emits: ["select"],
   setup(props) {
@@ -85,10 +94,19 @@ export default {
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
+  margin: 5px;
 }
 
 .dropdown-container {
   display: flex;
+}
+
+.dropdown-container:hover {
+  background-color: #ffeba7;
+}
+
+.dropdown-container:hover .selection-name {
+  color: #102770;
 }
 
 .sec-center {
@@ -96,6 +114,7 @@ export default {
   max-width: 100%;
   text-align: center;
   z-index: 200;
+  width: 100%;
 }
 [type="checkbox"]:checked,
 [type="checkbox"]:not(:checked) {
@@ -231,11 +250,10 @@ export default {
 .section-dropdown {
   margin-top: 10px;
   position: absolute;
-  padding: 5px;
   background-color: #111;
   top: 60px;
   left: 0;
-  width: max-content;
+  width: v-bind(dropdownContentWidth);
   border-radius: 4px;
   display: flex;
   flex-direction: column;
@@ -295,7 +313,6 @@ a {
   padding: 5px 0;
   padding-left: 20px;
   padding-right: 15px;
-  margin: 2px 0;
   text-align: left;
   text-decoration: none;
   display: -ms-flexbox;

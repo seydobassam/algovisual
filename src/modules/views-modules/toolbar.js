@@ -3,10 +3,9 @@ import home from "./home";
 
 const state = reactive({
   selectedAlgoType: Object,
+  isMobileMenuOpen: false,
 });
 
-// SOLID Pricple: Single Responsibility-Principle is used in this module.
-// And One level of abstraction, plus step down
 export default function toolbar() {
   const { setAlgorthim, setVirtualView } = home();
 
@@ -20,8 +19,13 @@ export default function toolbar() {
     state.selectedAlgoType = algorithmType;
   }
 
+  function toggleMobileMenu() {
+    state.isMobileMenuOpen = !state.isMobileMenuOpen;
+  }
+
   return {
     toolbarState: toRefs(state),
+    toggleMobileMenu,
     setDropdownSelections,
     setAlgorthim,
     setVirtualView,

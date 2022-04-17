@@ -77,7 +77,6 @@ export default {
 }
 
 .square-list-container {
- /*  margin: auto; */
   margin-top: 15px;
   border-style: solid;
   border-color: #333;
