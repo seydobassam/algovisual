@@ -1,16 +1,16 @@
 <template>
-  <div>
-   binary search tree
-  </div>
+  <div id="binarySearchTree" />
 </template>
 
 <script>
+import binarySearchTree from "../../../modules/views-modules/virtual-view-modules/binarySearchTree";
 export default {
   name: "BinarySearchTree",
-  components: {},
-  setup() {},
+  setup() {
+    const {initBST} = binarySearchTree();
+    initBST();
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>
