@@ -10,6 +10,8 @@ import home from "../modules/views-modules/home";
 import Toolbar from "./toolbar.vue";
 import Grid from "./virtual-views/pathfinding/grid.vue";
 import List from "./virtual-views/search/list.vue";
+import BinarySearchTree from "./virtual-views/search/binary-search-tree-view.vue";
+
 
 export default {
   name: "Home",
@@ -17,6 +19,7 @@ export default {
     Toolbar,
     Grid,
     List,
+    BinarySearchTree,
   },
   setup() {
     const { homeState } = home();
