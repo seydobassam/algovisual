@@ -6,18 +6,22 @@ export const dropdownData = [
       {
         id: "1",
         name: "Linear Search",
+        event: "runLinearSearch"
       },
       {
         id: "2",
         name: "Binary Search",
+        event: "runBinarySearch"
       },
       {
         id: "3",
         name: "Jump Search",
+        event: "runJumpSearch"
       },
       {
         id: "4",
         name: "Fibonacci Search",
+        event: "runFibonacciSearch"
       },
     ],
     virtualViews: [

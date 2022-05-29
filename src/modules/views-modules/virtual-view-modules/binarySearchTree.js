@@ -1,12 +1,15 @@
 import { onMounted } from "vue";
 import { BinaryTree, binaryTreeDrawer } from "binary-tree";
+import { watch } from "vue";
+import toolbar from "../toolbar";
 
 export default function binarySearchTree() {
-  const bst = new BinaryTree(100);
+  const { toolbarState } = toolbar();
 
+  const bst = new BinaryTree(100);
   function initBST() {
     onMounted(() => {
-      createBST(35, 30, 200); // left 
+      createBST(35, 30, 200); // left
       binaryTreeDrawer().draw("#binarySearchTree", bst);
       binaryTreeDrawer().onNodeClick((node) => {
         console.log(node);
@@ -14,6 +17,13 @@ export default function binarySearchTree() {
       });
     });
   }
+
+  watch(
+    () => toolbarState.event.value.get("runBinarySearch"),
+    (val) => {
+      console.log("watch => ", val);
+    }
+  );
 
   function createBST(n, min, max) {
     if (max - min < n) return;

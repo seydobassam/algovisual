@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import home from "../modules/views-modules/home";
 import Toolbar from "./toolbar.vue";
 import Grid from "./virtual-views/pathfinding/grid.vue";
 import List from "./virtual-views/search/list.vue";
 import BinarySearchTree from "./virtual-views/search/binary-search-tree-view.vue";
+import toolbar from '../modules/views-modules/toolbar';
 
 
 export default {
@@ -22,10 +22,10 @@ export default {
     BinarySearchTree,
   },
   setup() {
-    const { homeState } = home();
+    const { toolbarState } = toolbar();
 
     return {
-      ...homeState,
+      ...toolbarState,
     };
   },
 };
