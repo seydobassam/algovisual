@@ -78,8 +78,8 @@ export default function binarySearchTree() {
   function virtualizeTree(node) {
     setTimeout(async () => {
       await virtualizeNode(node);
-      await virtualizePath(node);
       tree.visitedNodes.push(node.value);
+      await virtualizePath(node);
     }, tree.startVirtualDuration);
     tree.startVirtualDuration += 500;
   }
