@@ -3,9 +3,13 @@
     <div class="tree-infos-container">
       <div class="tree-infos">
         <span>
-          <span class="nodes-label">Visited Nodes = </span>
+          <span class="visited-nodes-label">Visited Nodes = </span>
           <span class="visited-nodes">{{ visitedNodes }}</span>
         </span>
+        <div>
+          <button class="clear-tree">Clear Tree</button>
+          <button class="new-tree">New Tree</button>
+        </div>
       </div>
     </div>
     <div id="binarySearchTree" />
@@ -18,8 +22,8 @@ import binarySearchTree from "../../../modules/views-modules/virtual-view-module
 export default {
   name: "BinarySearchTree",
   setup() {
-    const { visitedNodes, initBST } = binarySearchTree();
-    initBST();
+    const { visitedNodes, initBinaryTree } = binarySearchTree();
+    initBinaryTree();
 
     return { visitedNodes };
   },
@@ -48,13 +52,29 @@ export default {
   height: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
-
-.nodes-label {
+.visited-nodes-label {
   font-size: large;
 }
 .visited-nodes {
   color: rgb(98, 110, 227);
   font-size: large;
+}
+.clear-tree {
+  margin-right: 15px;
+}
+
+button {
+  background-color: #09c372;
+  border: none;
+  color: white;
+  padding: 10px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 </style>

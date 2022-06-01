@@ -1,6 +1,6 @@
 import { BinaryTree, binaryTreeDrawer } from "binary-tree";
-import { reactive, toRefs, computed } from "@vue/reactivity";
-import { watch, onMounted, ref } from "vue";
+import { reactive, computed } from "@vue/reactivity";
+import { watch, onMounted } from "vue";
 import toolbar from "../toolbar";
 
 export default function binarySearchTree() {
@@ -17,7 +17,7 @@ export default function binarySearchTree() {
     duration: 0,
   };
 
-  const bst = new BinaryTree(100);
+  const binaryTree = new BinaryTree(100);
 /*   bst.addNode(51);
   bst.addNode(12);
   bst.addNode(11);
@@ -25,21 +25,21 @@ export default function binarySearchTree() {
   bst.addNode(150);
   bst.addNode(149);
   bst.addNode(152); */
-  createBST(15, 30, 99);
-  createBST(15, 101, 200);
-  function initBST() {
+  function initBinaryTree() {
     onMounted(() => {
-      binaryTreeDrawer().draw("#binarySearchTree", bst, treeOptions);
+      addNodesToTree(15, 30, 99);
+      addNodesToTree(15, 101, 200);
+      binaryTreeDrawer().draw("#binarySearchTree", binaryTree, treeOptions);
       binaryTreeDrawer().onNodeClick((node) => {
         tree.root = node?.data;
       });
     });
   }
 
-  function createBST(n, min, max) {
+  function addNodesToTree(n, min, max) {
     if (max - min < n) return;
     for (let i = 0; i < n; i++) {
-      bst.addNode(~~(Math.random() * (max - min + 1)) + min);
+      binaryTree.addNode(~~(Math.random() * (max - min + 1)) + min);
     }
   }
 
@@ -79,7 +79,7 @@ export default function binarySearchTree() {
     setTimeout(async () => {
       await virtualizeNode(node);
       tree.visitedNodes.push(node.value);
-      await virtualizePath(node);
+      await virtualizeNodePath(node);
     }, tree.startVirtualDuration);
     tree.startVirtualDuration += 500;
   }
@@ -88,10 +88,10 @@ export default function binarySearchTree() {
     await binaryTreeDrawer().animateNode(node.value, 400).end();
   }
 
-  async function virtualizePath(node) {
+  async function virtualizeNodePath(node) {
     if (node.value === tree.root.value) return;
     await binaryTreeDrawer().animatePath(node.value, 500).end();
   }
 
-  return { visitedNodes: computed(() => tree.visitedNodes), initBST };
+  return { visitedNodes: computed(() => tree.visitedNodes), initBinaryTree };
 }
