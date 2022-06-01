@@ -14,7 +14,6 @@ export default function binarySearchTree() {
 
   const treeOptions = {
     height: window.innerHeight - 135,
-    duration: 0,
   };
 
   const binaryTree = new BinaryTree(100);
