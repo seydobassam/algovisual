@@ -1,4 +1,4 @@
-import { reactive, toRefs, computed } from "@vue/reactivity";
+import { reactive, toRefs } from "@vue/reactivity";
 import Square from "../../../models/square-model";
 
 export default function searchList() {
