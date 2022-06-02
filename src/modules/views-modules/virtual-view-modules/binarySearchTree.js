@@ -8,8 +8,9 @@ export default function binarySearchTree() {
   const tree = reactive({
     binaryTree: null,
     root: null,
+    nodesToVirtualize: [],
     visitedNodes: [],
-    isAnimated: false,
+    isVirtualaizing: false,
     startVirtualDuration: 0,
   });
 
@@ -36,13 +37,16 @@ export default function binarySearchTree() {
   function addNodesToTree(n, min, max) {
     if (max - min < n) return;
     for (let i = 0; i < n; i++) {
-       tree.binaryTree.addNode(~~(Math.random() * (max - min + 1)) + min);
+      tree.binaryTree.addNode(~~(Math.random() * (max - min + 1)) + min);
     }
   }
 
   function clearTree() {
-    binaryTreeDrawer().refreshTree();
-    resetStoredTreeData();
+    if (!tree.isVirtualaizing) {
+      resetTree();
+      return;
+    }
+    stopVirtualization();
   }
 
   function newTree() {
@@ -51,22 +55,31 @@ export default function binarySearchTree() {
     createTree();
   }
 
+  function resetTree() {
+    resetStoredTreeData();
+    binaryTreeDrawer().refreshTree();
+  }
+
+  function stopVirtualization() {
+    tree.isVirtualaizing = false;
+  }
+
   watch(
     () => toolbarState.event.value.get("runLinearSearch"),
     () => {
-      if (!tree.root) {
+      if (!tree.root || tree.isVirtualaizing) {
         return;
       }
-      if (tree.isAnimated) {
-        clearTree();
+      if (tree.visitedNodes.length > 0) {
+        resetTree();
       }
       inorderTraversal(tree.root);
-      tree.isAnimated = true;
+      virtualizeTree(); 
     }
   );
 
   function resetStoredTreeData() {
-    tree.isAnimated = false;
+    tree.nodesToVirtualize = [];
     tree.visitedNodes = [];
     tree.startVirtualDuration = 0;
   }
@@ -75,30 +88,41 @@ export default function binarySearchTree() {
   function inorderTraversal(node) {
     if (!node) return;
     inorderTraversal(node.left);
-    virtualizeTree(node);
+    tree.nodesToVirtualize.push(node);
     inorderTraversal(node.right);
   }
 
   // Breadth-First Search (BFS)
   function breadthFirstSearch() {}
 
-  function virtualizeTree(node) {
-    setTimeout(async () => {
+  async function virtualizeTree() {
+    tree.isVirtualaizing = true;
+    for (const node of tree.nodesToVirtualize) {
+      if (!tree.isVirtualaizing) {
+        console.log("cancel");
+        resetTree();
+        break;
+      }
       await virtualizeNode(node);
       tree.visitedNodes.push(node.value);
       await virtualizeNodePath(node);
-    }, tree.startVirtualDuration);
-    tree.startVirtualDuration += 500;
+    }
+    tree.isVirtualaizing = false;
   }
 
   async function virtualizeNode(node) {
-    await binaryTreeDrawer().animateNode(node.value, 400).end();
+    await binaryTreeDrawer().animateNode(node.value, 300).end();
   }
 
   async function virtualizeNodePath(node) {
     if (node.value === tree.root.value) return;
-    await binaryTreeDrawer().animatePath(node.value, 500).end();
+    await binaryTreeDrawer().animatePath(node.value, 300).end();
   }
 
-  return { visitedNodes: computed(() => tree.visitedNodes), initBinaryTree, clearTree, newTree};
+  return {
+    visitedNodes: computed(() => tree.visitedNodes),
+    initBinaryTree,
+    clearTree,
+    newTree,
+  };
 }

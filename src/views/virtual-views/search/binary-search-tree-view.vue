@@ -70,12 +70,12 @@ button {
   outline: none;
 }
 .btn-10 {
-  border: 3px solid #000;
+  border: 3px solid #1d1f1d;
   font-family: "Lato", sans-serif;
   width: 130px;
   height: 40px;
   cursor: pointer;
-  background: #000;
+  background: #1d1f1d;
   color: white;
   font-weight: bold;
 }
