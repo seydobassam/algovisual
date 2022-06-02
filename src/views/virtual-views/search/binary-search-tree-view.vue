@@ -7,8 +7,8 @@
           <span class="visited-nodes">{{ visitedNodes }}</span>
         </span>
         <div>
-          <button class="clear-tree">Clear Tree</button>
-          <button class="new-tree">New Tree</button>
+          <button class="custom-btn btn-10" @click="clearTree">Clear Tree</button>
+          <button class="custom-btn btn-10" @click="newTree">New Tree</button>
         </div>
       </div>
     </div>
@@ -22,10 +22,10 @@ import binarySearchTree from "../../../modules/views-modules/virtual-view-module
 export default {
   name: "BinarySearchTree",
   setup() {
-    const { visitedNodes, initBinaryTree } = binarySearchTree();
+    const { visitedNodes, initBinaryTree, clearTree, newTree } = binarySearchTree();
     initBinaryTree();
 
-    return { visitedNodes };
+    return { visitedNodes, clearTree, newTree};
   },
 };
 </script>
@@ -48,7 +48,7 @@ export default {
   justify-content: center;
 }
 .tree-infos {
-  width: 80%;
+  width: 90%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -66,15 +66,21 @@ export default {
 }
 
 button {
-  background-color: #09c372;
-  border: none;
-  color: white;
-  padding: 10px 22px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
+  margin: 20px;
+  outline: none;
+}
+.btn-10 {
+  border: 3px solid #000;
+  font-family: "Lato", sans-serif;
+  width: 130px;
+  height: 40px;
   cursor: pointer;
+  background: #000;
+  color: white;
+  font-weight: bold;
+}
+.btn-10:hover {
+  color: #ffeba7;
+  font-weight: bold;
 }
 </style>
