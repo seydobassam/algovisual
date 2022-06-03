@@ -1,13 +1,10 @@
 import { reactive, toRefs } from "@vue/reactivity";
-import { ref } from "vue";
 
 const state = reactive({
   selectedAlgoType: Object,
   selectedAlgorthim: Object,
-  selectedVirtualView: Object,
   isMobileMenuOpen: false,
-  isStarted: false,
-  event: new Map()
+  event: null
 });
 
 export default function toolbar() {
@@ -15,7 +12,6 @@ export default function toolbar() {
   function setDropdownSelections(algorithmType) {
     setAlgorithmType(algorithmType);
     setAlgorthim(algorithmType.algorithms[0]);
-    setVirtualView(algorithmType.virtualViews[0]);
   }
 
   function setAlgorithmType(algorithmType) {
@@ -26,17 +22,12 @@ export default function toolbar() {
     state.selectedAlgorthim = algorithm;
   }
 
-  function setVirtualView(virtualView) {
-    state.selectedVirtualView = virtualView;
-  }
-
   function toggleMobileMenu() {
     state.isMobileMenuOpen = !state.isMobileMenuOpen;
   }
 
   function emitAlgorithmEvent() {
-    state.isStarted = !state.isStarted;
-    state.event.set(state.selectedAlgorthim.event, {});
+    state.event = state.selectedAlgorthim.event;
   }
 
   return {
@@ -44,7 +35,6 @@ export default function toolbar() {
     toggleMobileMenu,
     setDropdownSelections,
     setAlgorthim,
-    setVirtualView,
     emitAlgorithmEvent,
   };
 }

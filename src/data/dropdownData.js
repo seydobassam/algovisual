@@ -1,45 +1,35 @@
 export const dropdownData = [
   {
-    id: "1",
-    name: "Search",
+    id: 1,
+    name: "Binary Tree",
+    component: "BinarySearchTree",
     algorithms: [
       {
         id: "1",
-        name: "Linear Search",
-        event: "runLinearSearch"
+        name: "DFS Inorder",
+        event: "inorder"
       },
       {
         id: "2",
-        name: "Binary Search",
-        event: "runBinarySearch"
+        name: "DFS Preorder",
+        event: ""
       },
       {
         id: "3",
-        name: "Jump Search",
-        event: "runJumpSearch"
+        name: "DFS Postorder",
+        event: ""
       },
       {
         id: "4",
-        name: "Fibonacci Search",
-        event: "runFibonacciSearch"
-      },
-    ],
-    virtualViews: [
-      {
-        id: "1",
-        component: "BinarySearchTree",
-        name: "Binary Search Tree",
-      },
-      {
-        id: "2",
-        component: "List",
-        name: "Search List",
+        name: "BFS LevelOrder",
+        event: "levelOrder"
       },
     ],
   },
   {
-    id: "2",
+    id: 3,
     name: "Pathfinding",
+    component: "Grid",
     algorithms: [
       {
         id: "1",
@@ -66,23 +56,39 @@ export const dropdownData = [
         name: "Depth First Search",
       },
     ],
-    virtualViews: [
+  },
+  {
+    id: 2,
+    name: "Search",
+    component: "List",
+    algorithms: [
       {
         id: "1",
-        component: "Grid",
-        name: "Pathfinding Grid",
+        name: "Linear Search",
+        event: "runLinearSearch",
       },
       {
         id: "2",
-        component: "GridView",
-        name: "Grid View",
+        name: "Binary Search",
+        event: "runBinarySearch",
+      },
+      {
+        id: "3",
+        name: "Jump Search",
+        event: "runJumpSearch",
+      },
+      {
+        id: "4",
+        name: "Fibonacci Search",
+        event: "runFibonacciSearch",
       },
     ],
   },
 
   {
-    id: "3",
+    id: 4,
     name: "Sort",
+    component: "charactersSortView",
     algorithms: [
       {
         id: "1",
@@ -103,13 +109,6 @@ export const dropdownData = [
       {
         id: "5",
         name: "Quick Sort",
-      },
-    ],
-    virtualViews: [
-      {
-        id: "1",
-        component: "charactersSortView",
-        name: "Characters",
       },
     ],
   },

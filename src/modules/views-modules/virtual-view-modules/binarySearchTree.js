@@ -84,17 +84,30 @@ export default function binarySearchTree() {
   }
 
   watch(
-    () => toolbarState.event.value.get("runLinearSearch"),
-    () => {
+    () => toolbarState.event.value,
+    (value) => {
       if (!tree.root || tree.isVirtualaizing) {
         return;
       }
       if (tree.visitedNodes.length > 0) {
         resetTree();
       }
-      levelOrder();
-      /*  inorderTraversal(tree.root);
-      virtualizeTree();  */
+
+      switch (value) {
+        case "inorder":
+          inorder(tree.root);
+          virtualizeTree();
+          break;
+        case "preOrder":
+          console.log("preOrder");
+          break;
+        case "postOrder":
+          console.log("postOrder");
+          break;
+        case "levelOrder":
+          levelOrder();
+          break;
+      }
     }
   );
 
@@ -105,11 +118,11 @@ export default function binarySearchTree() {
   }
 
   // Depth-First Search (DFS)
-  function inorderTraversal(node) {
+  function inorder(node) {
     if (!node) return;
-    inorderTraversal(node.left);
+    inorder(node.left);
     tree.nodesToVirtualize.push(node);
-    inorderTraversal(node.right);
+    inorder(node.right);
   }
 
   // Breadth-First Search (BFS)

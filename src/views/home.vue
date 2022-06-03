@@ -1,7 +1,7 @@
 <template>
   <Toolbar />
   <keep-alive>
-    <component :is="selectedVirtualView.component" />
+    <component :is="selectedAlgoType.component" />
   </keep-alive>
 </template>
 

@@ -18,14 +18,6 @@
             :width="'220px'"
         /></span>
         <span>
-          <Dropdown
-            class="dropdown"
-            @select="setVirtualView($event)"
-            :selections="selectedAlgoType.virtualViews"
-            :width="'180px'"
-        /></span>
-
-        <span>
           <div class="btn" @click="emitAlgorithmEvent()">
             <div class="fondo" x="0" y="0" width="200" height="200"></div>
             <div class="icono" width="200" height="200">
@@ -76,13 +68,6 @@
             :selections="selectedAlgoType.algorithms"
             :dropdownContentWidth="'100%'"
         /></span>
-        <span class="span3">
-          <Dropdown
-            class="dropdown"
-            @select="setVirtualView($event)"
-            :selections="selectedAlgoType.virtualViews"
-            :dropdownContentWidth="'100%'"
-        /></span>
       </div>
     </ul>
   </header>
@@ -105,7 +90,6 @@ export default {
       toggleMobileMenu,
       setDropdownSelections,
       setAlgorthim,
-      setVirtualView,
       emitAlgorithmEvent,
     } = toolbar();
 
@@ -117,7 +101,6 @@ export default {
       toggleMobileMenu,
       setDropdownSelections,
       setAlgorthim,
-      setVirtualView,
       emitAlgorithmEvent
     };
   },
