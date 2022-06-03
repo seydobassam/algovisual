@@ -2,12 +2,15 @@
   <div class="tree-container">
     <div class="tree-infos-container">
       <div class="tree-infos">
-        <span>
+        <span class="nodes-display">
+          <img  src="./../../../assets/node.png" />
           <span class="visited-nodes-label">Visited Nodes = </span>
           <span class="visited-nodes">{{ visitedNodes }}</span>
         </span>
         <div>
-          <button class="custom-btn btn-10" @click="clearTree">Clear Tree</button>
+          <button class="custom-btn btn-10" @click="clearTree">
+            Clear Tree
+          </button>
           <button class="custom-btn btn-10" @click="newTree">New Tree</button>
         </div>
       </div>
@@ -22,10 +25,11 @@ import binarySearchTree from "../../../modules/views-modules/virtual-view-module
 export default {
   name: "BinarySearchTree",
   setup() {
-    const { visitedNodes, initBinaryTree, clearTree, newTree } = binarySearchTree();
+    const { visitedNodes, initBinaryTree, clearTree, newTree } =
+      binarySearchTree();
     initBinaryTree();
 
-    return { visitedNodes, clearTree, newTree};
+    return { visitedNodes, clearTree, newTree };
   },
 };
 </script>
@@ -54,12 +58,18 @@ export default {
   align-items: center;
   justify-content: space-between;
 }
+.nodes-display {
+  display: flex;
+  align-items: center;
+}
 .visited-nodes-label {
   font-size: large;
+  margin-left: 15px;
 }
 .visited-nodes {
   color: rgb(98, 110, 227);
   font-size: large;
+  margin-left: 3px;
 }
 .clear-tree {
   margin-right: 15px;
