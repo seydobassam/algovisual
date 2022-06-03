@@ -26,27 +26,8 @@ export default function binarySearchTree() {
 
   function createTree() {
     tree.binaryTree = new BinaryTree(100);
-    tree.binaryTree.addNode(51);
-    tree.binaryTree.addNode(150);
-    tree.binaryTree.addNode(12);
-    tree.binaryTree.addNode(152);
-    tree.binaryTree.addNode(2);
-    tree.binaryTree.addNode(144);
-    tree.binaryTree.addNode(12);
-    tree.binaryTree.addNode(61);
-    tree.binaryTree.addNode(62);
-    tree.binaryTree.addNode(63);
-    tree.binaryTree.addNode(234);
-    tree.binaryTree.addNode(22);
-    tree.binaryTree.addNode(123);
-    tree.binaryTree.addNode(122);
-    tree.binaryTree.addNode(125);
-    tree.binaryTree.addNode(57);
-    tree.binaryTree.addNode(233);
-    tree.binaryTree.addNode(235);
-    tree.binaryTree.addNode(149);
-    /* addNodesToTree(15, 30, 99);
-    addNodesToTree(15, 101, 200); */
+    addNodesToTree(15, 30, 99);
+    addNodesToTree(15, 101, 200);
     binaryTreeDrawer().draw("#binarySearchTree", tree.binaryTree, treeOptions);
     binaryTreeDrawer().onNodeClick((node) => {
       tree.root = node?.data;
@@ -84,7 +65,7 @@ export default function binarySearchTree() {
   }
 
   watch(
-    () => toolbarState.event.value,
+    () => toolbarState.event.value.keys(),
     (value) => {
       if (!tree.root || tree.isVirtualaizing) {
         return;
@@ -93,22 +74,25 @@ export default function binarySearchTree() {
         resetTree();
       }
 
-      switch (value) {
+      switch (value.next().value) {
         case "inorder":
           inorder(tree.root);
           virtualizeTree();
           break;
         case "preOrder":
-          console.log("preOrder");
+          preOrder(tree.root);
+          virtualizeTree();
           break;
         case "postOrder":
-          console.log("postOrder");
+          postOrder(tree.root);
+          virtualizeTree();
           break;
         case "levelOrder":
           levelOrder();
           break;
       }
-    }
+    },
+    { deep: true }
   );
 
   function resetStoredTreeData() {
@@ -125,15 +109,33 @@ export default function binarySearchTree() {
     inorder(node.right);
   }
 
+  function preOrder(node) {
+    if (!node) return;
+    tree.nodesToVirtualize.push(node);
+    inorder(node.left);
+    inorder(node.right);
+  }
+
+  function postOrder(node) {
+    if (!node) return;
+    inorder(node.left);
+    inorder(node.right);
+    tree.nodesToVirtualize.push(node);
+  }
+
   // Breadth-First Search (BFS)
   async function levelOrder() {
     if (!tree.root) return;
-
+    tree.isVirtualaizing = true;
     var queue = [tree.root];
     while (queue.length) {
       queue.push(null);
       var levelNodes = [];
       var node;
+      if (!tree.isVirtualaizing) {
+        resetTree();
+        break;
+      }
       while ((node = queue.shift())) {
         levelNodes.push(node.value);
         await virtualizeNode(node);
@@ -143,13 +145,13 @@ export default function binarySearchTree() {
       }
       tree.visitedNodes.push(levelNodes);
     }
+    tree.isVirtualaizing = false;
   }
 
   async function virtualizeTree() {
     tree.isVirtualaizing = true;
     for (const node of tree.nodesToVirtualize) {
       if (!tree.isVirtualaizing) {
-        console.log("cancel");
         resetTree();
         break;
       }

@@ -4,11 +4,10 @@ const state = reactive({
   selectedAlgoType: Object,
   selectedAlgorthim: Object,
   isMobileMenuOpen: false,
-  event: null
+  event: new Map(),
 });
 
 export default function toolbar() {
-
   function setDropdownSelections(algorithmType) {
     setAlgorithmType(algorithmType);
     setAlgorthim(algorithmType.algorithms[0]);
@@ -27,7 +26,8 @@ export default function toolbar() {
   }
 
   function emitAlgorithmEvent() {
-    state.event = state.selectedAlgorthim.event;
+    // Hack: create a new value reference in memory, so that the watcher gets trigger when the new value is the same as old one.
+    state.event = new Map().set(state.selectedAlgorthim.event, {});
   }
 
   return {

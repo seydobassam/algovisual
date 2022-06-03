@@ -12,12 +12,12 @@ export const dropdownData = [
       {
         id: "2",
         name: "DFS Preorder",
-        event: ""
+        event: "preOrder"
       },
       {
         id: "3",
         name: "DFS Postorder",
-        event: ""
+        event: "postOrder"
       },
       {
         id: "4",
