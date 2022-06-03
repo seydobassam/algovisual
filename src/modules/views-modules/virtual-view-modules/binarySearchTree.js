@@ -26,8 +26,27 @@ export default function binarySearchTree() {
 
   function createTree() {
     tree.binaryTree = new BinaryTree(100);
-    addNodesToTree(15, 30, 99);
-    addNodesToTree(15, 101, 200);
+    tree.binaryTree.addNode(51);
+    tree.binaryTree.addNode(150);
+    tree.binaryTree.addNode(12);
+    tree.binaryTree.addNode(152);
+    tree.binaryTree.addNode(2);
+    tree.binaryTree.addNode(144);
+    tree.binaryTree.addNode(12);
+    tree.binaryTree.addNode(61);
+    tree.binaryTree.addNode(62);
+    tree.binaryTree.addNode(63);
+    tree.binaryTree.addNode(234);
+    tree.binaryTree.addNode(22);
+    tree.binaryTree.addNode(123);
+    tree.binaryTree.addNode(122);
+    tree.binaryTree.addNode(125);
+    tree.binaryTree.addNode(57);
+    tree.binaryTree.addNode(233);
+    tree.binaryTree.addNode(235);
+    tree.binaryTree.addNode(149);
+    /* addNodesToTree(15, 30, 99);
+    addNodesToTree(15, 101, 200); */
     binaryTreeDrawer().draw("#binarySearchTree", tree.binaryTree, treeOptions);
     binaryTreeDrawer().onNodeClick((node) => {
       tree.root = node?.data;
@@ -73,8 +92,9 @@ export default function binarySearchTree() {
       if (tree.visitedNodes.length > 0) {
         resetTree();
       }
-      inorderTraversal(tree.root);
-      virtualizeTree(); 
+      levelOrder();
+      /*  inorderTraversal(tree.root);
+      virtualizeTree();  */
     }
   );
 
@@ -93,7 +113,24 @@ export default function binarySearchTree() {
   }
 
   // Breadth-First Search (BFS)
-  function breadthFirstSearch() {}
+  async function levelOrder() {
+    if (!tree.root) return;
+
+    var queue = [tree.root];
+    while (queue.length) {
+      queue.push(null);
+      var levelNodes = [];
+      var node;
+      while ((node = queue.shift())) {
+        levelNodes.push(node.value);
+        await virtualizeNode(node);
+        await virtualizeNodePath(node);
+        if (node.left) queue.push(node.left);
+        if (node.right) queue.push(node.right);
+      }
+      tree.visitedNodes.push(levelNodes);
+    }
+  }
 
   async function virtualizeTree() {
     tree.isVirtualaizing = true;
