@@ -16,6 +16,12 @@ export default function binarySearchTree() {
 
   const treeOptions = {
     height: window.innerHeight - 135,
+    linkStyleOptions: {
+      strokeWidth: "5px"
+    },
+    nodeStyleOptions: {
+      strokeWidth: "5px"
+    }
   };
 
   function initBinaryTree() {
