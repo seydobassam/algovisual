@@ -1,13 +1,17 @@
 import { reactive } from '@vue/reactivity';
+import { getCurrentInstance, watch } from 'vue';
 import Node from "../../models/node-model";
 
 const state = reactive({
   isMouseEvent: false,
   selectedNodeType: "empty",
   prevNode: Node,
+  startNode: null,
+  finishNode: null
 });
 
 export default function node() {
+  const { emit } = getCurrentInstance();
 
   // FIXME: below functions should be refactored
   const onMouseDown = (currentNode) => {
@@ -29,7 +33,8 @@ export default function node() {
     }
 
     if (state.selectedNodeType !== currentNode.type) {
-        changeNode(state.prevNode, state.selectedNodeType);
+      console.log("reset");
+      changeNode(state.prevNode, state.selectedNodeType);
     }
   }
 
@@ -46,6 +51,15 @@ export default function node() {
 
   const onMouseUp = () => {
     state.isMouseEvent = false;
+
+    if (state.startNode) {
+      emit("selectStartNode", state.startNode);  
+    } else if (state.finishNode){
+      emit("selectFinishNode", state.finishNode);  
+    }
+
+    state.startNode = null;
+    state.finishNode = null;
   }
 
   // local functions 
@@ -67,6 +81,11 @@ export default function node() {
 
   function changeNode(currentNode, newType) {
     currentNode.type = newType;
+    if (newType === "start") {
+      state.startNode = currentNode;
+    } else if (newType  === "end") {
+      state.finishNode = currentNode;
+    }
   }
 
   return {

@@ -7,6 +7,7 @@ export const dropdownData = [
       {
         id: "1",
         name: "Dijkstra’s Algorithm",
+        event: "dijkstra"
       },
       {
         id: "2",

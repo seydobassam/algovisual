@@ -18,6 +18,7 @@ import node from "../modules/widget-mouldes/node.js";
 
 export default {
   name: "node",
+  emits: ["selectStartNode", "selectFinishNode"],
   props: {
     nodeProp: {
       type: [Object],

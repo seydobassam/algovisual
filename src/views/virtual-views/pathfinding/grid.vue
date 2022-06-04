@@ -5,7 +5,7 @@
       <div class="grid-view">
         <tr class="trs" v-for="(record, rowIndex) in gridData" :key="rowIndex">
           <td v-for="(col, index) in record" :key="index">
-            <Node :nodeProp="col"> </Node>
+            <Node @selectStartNode="selectStartNode($event)" @selectFinishNode="selectFinishNode($event)" :nodeProp="col"> </Node>
           </td>
         </tr>
       </div>
@@ -26,12 +26,12 @@ export default {
   },
 
   setup() {
-    const { gridNodesState, isLoading, createGridNodes, stopLoading } = pathfindingGrid();
+    const { gridNodesState, isLoading, createGridNodes, stopLoading, selectStartNode, selectFinishNode } = pathfindingGrid();
 
     createGridNodes();
     stopLoading();
 
-    return { ...gridNodesState, isLoading };
+    return { ...gridNodesState, isLoading, selectStartNode, selectFinishNode};
   },
 };
 </script>

@@ -1,14 +1,20 @@
 import { reactive, toRefs, computed } from "@vue/reactivity";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import Node from "../../../models/node-model";
+import toolbar from "../toolbar";
 
 const state = reactive({
   gridData: [],
+  startNode: Node,
+  finishNode: Node,
 });
+
 export default function pathfindingGrid() {
+  const { toolbarState } = toolbar();
+
   const isLoading = ref(true);
 
-  // FIXME: refactor createGrid Nodes function, better name and single responsibility principle, and read step down
+  // FIXME: refactor createGrid Nodes function
   function createGridNodes() {
     const currentGrid = [];
     let height = Math.floor(window.innerHeight / 37);
@@ -34,14 +40,34 @@ export default function pathfindingGrid() {
     state.gridData = currentGrid;
   }
 
+  function selectStartNode(node) {
+    state.startNode = node;
+    console.log("startNode:", node);
+  }
+
+  function selectFinishNode(node) {
+    state.finishNode = node;
+    console.log("finishNode: ", node);
+  }
+
   function stopLoading() {
     setTimeout(() => (isLoading.value = false), 60);
   }
 
+  watch(
+    () => toolbarState.event.value.keys(),
+    (value) => {
+      console.log(value);
+    },
+    { deep: true }
+  );
+
   return {
     gridNodesState: toRefs(state),
-    isLoading: computed(() => isLoading.value), 
+    isLoading: computed(() => isLoading.value),
     createGridNodes,
     stopLoading,
+    selectStartNode,
+    selectFinishNode,
   };
 }
