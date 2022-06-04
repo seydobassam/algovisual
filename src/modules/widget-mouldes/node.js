@@ -1,5 +1,4 @@
 import { reactive } from '@vue/reactivity';
-import pathfindingGrid from '../views-modules/virtual-view-modules/pathfindingGrid';
 import Node from "../../models/node-model";
 
 const state = reactive({
@@ -9,7 +8,6 @@ const state = reactive({
 });
 
 export default function node() {
-  const { gridNodesState } = pathfindingGrid()
 
   // FIXME: below functions should be refactored
   const onMouseDown = (currentNode) => {
@@ -50,7 +48,6 @@ export default function node() {
     state.isMouseEvent = false;
   }
 
-
   // local functions 
   const setSelectedNodeType = (nodeType) => { 
     if (nodeType === "empty") {
@@ -70,10 +67,6 @@ export default function node() {
 
   function changeNode(currentNode, newType) {
     currentNode.type = newType;
-    let rowCol = currentNode.nodeID.split("-");
-    let r = parseInt(rowCol[0]);
-    let c = parseInt(rowCol[1]);
-    gridNodesState.gridData.value[r][c]= currentNode;
   }
 
   return {
