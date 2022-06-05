@@ -1,6 +1,6 @@
 import { reactive, toRefs, computed } from "@vue/reactivity";
 import { onMounted, ref, watch } from "vue";
-import { dijkstra } from "../../../algos/dijkstra";
+import { dijkstra } from "../../../algos/pathfinding-algos/dijkstra";
 import GraphNode from "../../../models/graph-node-model";
 import toolbar from "../toolbar";
 
@@ -34,14 +34,14 @@ export default function pathfindingGrid() {
   }
 
   function createGraphNode(row, col) {
-    const type = getInitNodeType(row, col);
+    const type = getNodeType(row, col);
     const graphNode = new GraphNode(row, col, type);
     if (type === "start") grid.startNode = graphNode;
     if (type === "finish") grid.finishNode = graphNode;    
     return graphNode;
   }
 
-  function getInitNodeType(row, col) {
+  function getNodeType(row, col) {
     if (
       row === Math.floor(gridHeight / 2) &&
       col === Math.floor(gridWidth / 5)
@@ -57,16 +57,11 @@ export default function pathfindingGrid() {
   }
 
   function selectStartNode(node) {
-    changeDistanceOfStartNode(node);
     grid.startNode = node;
   }
 
-  function selectFinishNode(node) {
+  function selectFinishNode(node) {    
     grid.finishNode = node;
-  }
-
-  function changeDistanceOfStartNode(node) {
-    grid.gridData[node.row][node.col].distance = 0;
   }
 
   function stopLoading() {

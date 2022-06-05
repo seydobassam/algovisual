@@ -1,5 +1,5 @@
-import { reactive } from '@vue/reactivity';
-import { getCurrentInstance, watch } from 'vue';
+import { reactive } from "@vue/reactivity";
+import { getCurrentInstance, watch } from "vue";
 import GraphNode from "../../models/graph-node-model";
 
 const state = reactive({
@@ -7,7 +7,7 @@ const state = reactive({
   selectedNodeType: "empty",
   prevNode: GraphNode,
   startNode: null,
-  finishNode: null
+  finishNode: null,
 });
 
 export default function node() {
@@ -15,75 +15,81 @@ export default function node() {
 
   // FIXME: below functions should be refactored
   const onMouseDown = (currentNode) => {
-    state.isMouseEvent = true
+    state.isMouseEvent = true;
     setSelectedNodeType(currentNode.type);
-    if (state.selectedNodeType === "empty" || state.selectedNodeType === "block") {
-       changeNode(currentNode, state.selectedNodeType);
+    if (
+      state.selectedNodeType === "empty" ||
+      state.selectedNodeType === "block"
+    ) {
+      changeNode(currentNode, state.selectedNodeType);
     }
-  }
+  };
 
-  const onMouseEnter = (currentNode) => {    
+  const onMouseEnter = (currentNode) => {
     if (!state.isMouseEvent) {
-        return;
+      return;
     }
 
     if (currentNode.type === "empty") {
-        setPrevNodeEmpty(state.prevNode);
-        changeNode(currentNode, state.selectedNodeType);
+      setPrevNodeEmpty(state.prevNode);
+      changeNode(currentNode, state.selectedNodeType);
     }
 
     if (state.selectedNodeType !== currentNode.type) {
       console.log("reset");
       changeNode(state.prevNode, state.selectedNodeType);
     }
-  }
+  };
 
-  const onMouseLeave = (currentNode) => { 
+  const onMouseLeave = (currentNode) => {
     if (!state.isMouseEvent) {
-        return;
+      return;
     }
-    
+
     if (state.selectedNodeType === currentNode.type) {
-        state.prevNode = currentNode;
-        setPrevNodeEmpty(currentNode);
+      state.prevNode = currentNode;
+      setPrevNodeEmpty(currentNode);
     }
-  }
+  };
 
   const onMouseUp = () => {
     state.isMouseEvent = false;
 
     if (state.startNode) {
-      emit("selectStartNode", state.startNode);  
-    } else if (state.finishNode){
-      emit("selectFinishNode", state.finishNode);  
+      emit("selectStartNode", state.startNode);
+    } else if (state.finishNode) {
+      emit("selectFinishNode", state.finishNode);
     }
 
     state.startNode = null;
     state.finishNode = null;
-  }
+  };
 
-  // local functions 
-  const setSelectedNodeType = (nodeType) => { 
+  // local functions
+  const setSelectedNodeType = (nodeType) => {
     if (nodeType === "empty") {
-        state.selectedNodeType = "block";
-      } else if (nodeType === "block") {
-        state.selectedNodeType = "empty";
-      } else {
-        state.selectedNodeType = nodeType;
-      }
-  }
+      state.selectedNodeType = "block";
+    } else if (nodeType === "block") {
+      state.selectedNodeType = "empty";
+    } else {
+      state.selectedNodeType = nodeType;
+    }
+  };
 
   const setPrevNodeEmpty = (currentNode) => {
-    if (state.selectedNodeType === "start" || state.selectedNodeType === "end") {
-        changeNode(currentNode, "empty"); 
+    if (
+      state.selectedNodeType === "start" ||
+      state.selectedNodeType === "finish"
+    ) {
+      changeNode(currentNode, "empty");
     }
-  }
+  };
 
   function changeNode(currentNode, newType) {
     currentNode.type = newType;
     if (newType === "start") {
       state.startNode = currentNode;
-    } else if (newType  === "end") {
+    } else if (newType === "finish") {
       state.finishNode = currentNode;
     }
   }
