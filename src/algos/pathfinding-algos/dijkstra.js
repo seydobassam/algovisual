@@ -1,4 +1,4 @@
-import { MinHeap } from "./minheap";
+import { MinHeap } from "../../dataStructures/minHeap";
 
 export function dijkstra(grid, startNode, finishNode) {
   const minHeap = new MinHeap();
