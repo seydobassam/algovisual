@@ -1,53 +1,72 @@
 import { reactive, toRefs, computed } from "@vue/reactivity";
-import { ref, watch } from "vue";
-import Node from "../../../models/node-model";
+import { onMounted, ref, watch } from "vue";
+import { dijkstra } from "../../../algos/dijkstra";
+import GraphNode from "../../../models/graph-node-model";
 import toolbar from "../toolbar";
 
-const state = reactive({
-  gridData: [],
-  startNode: Node,
-  finishNode: Node,
-});
-
 export default function pathfindingGrid() {
-  const { toolbarState } = toolbar();
+  const grid = reactive({
+    nodes: [],
+    startNode: GraphNode,
+    finishNode: GraphNode,
+  });
 
+  const { toolbarState } = toolbar();
+  const gridHeight = Math.floor(window.innerHeight / 37);
+  const gridWidth = Math.floor(window.innerWidth / 31);
   const isLoading = ref(true);
 
-  // FIXME: refactor createGrid Nodes function
-  function createGridNodes() {
-    const currentGrid = [];
-    let height = Math.floor(window.innerHeight / 37);
-    let width = Math.floor(window.innerWidth / 31);
-    for (let r = 0; r < height; r++) {
-      let arrayRows = [];
-      for (let c = 0; c < width; c++) {
-        let nodeID = `${r}-${c}`;
-        let nodeType = "empty";
-        if (r === Math.floor(height / 2) && c === Math.floor(width / 5)) {
-          nodeType = "start";
-        } else if (
-          r === Math.floor((height * 2) / 3) &&
-          c === Math.floor((2 * width) / 3)
-        ) {
-          nodeType = "end";
-        }
-        let newNode = new Node(nodeID, nodeType);
-        arrayRows.push(newNode);
+  onMounted(() => {
+    initGrid();
+    stopLoading();
+  });
+
+  function initGrid() {
+    const gridData = [];
+    for (let row = 0; row < gridHeight; row++) {
+      const currentRow = [];
+      for (let col = 0; col < gridWidth; col++) {
+        currentRow.push(createGraphNode(row, col));
       }
-      currentGrid.push(arrayRows);
+      gridData.push(currentRow);
     }
-    state.gridData = currentGrid;
+    grid.nodes = gridData;
+  }
+
+  function createGraphNode(row, col) {
+    const type = getInitNodeType(row, col);
+    const graphNode = new GraphNode(row, col, type);
+    if (type === "start") grid.startNode = graphNode;
+    if (type === "finish") grid.finishNode = graphNode;    
+    return graphNode;
+  }
+
+  function getInitNodeType(row, col) {
+    if (
+      row === Math.floor(gridHeight / 2) &&
+      col === Math.floor(gridWidth / 5)
+    ) {
+      return "start";
+    } else if (
+      row === Math.floor((gridHeight * 2) / 7) &&
+      col === Math.floor((2 * gridWidth) / 3)
+    ) {
+      return "finish";
+    }
+    return "empty";
   }
 
   function selectStartNode(node) {
-    state.startNode = node;
-    console.log("startNode:", node);
+    changeDistanceOfStartNode(node);
+    grid.startNode = node;
   }
 
   function selectFinishNode(node) {
-    state.finishNode = node;
-    console.log("finishNode: ", node);
+    grid.finishNode = node;
+  }
+
+  function changeDistanceOfStartNode(node) {
+    grid.gridData[node.row][node.col].distance = 0;
   }
 
   function stopLoading() {
@@ -57,16 +76,19 @@ export default function pathfindingGrid() {
   watch(
     () => toolbarState.event.value.keys(),
     (value) => {
-      console.log(value);
+      switch (value.next().value) {
+        case "dijkstra":
+           const result = dijkstra(grid.nodes, grid.startNode, grid.finishNode);
+          console.log("result: =>", result);
+          break;
+      }
     },
     { deep: true }
   );
 
   return {
-    gridNodesState: toRefs(state),
+    gridNodesState: toRefs(grid),
     isLoading: computed(() => isLoading.value),
-    createGridNodes,
-    stopLoading,
     selectStartNode,
     selectFinishNode,
   };

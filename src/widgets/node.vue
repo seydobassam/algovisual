@@ -7,7 +7,7 @@
     class="node"
     v-bind:class="{
       'node-start': nodeProp.type === 'start',
-      'node-finish': nodeProp.type === 'end',
+      'node-finish': nodeProp.type === 'finish',
       'node-block': nodeProp.type === 'block',
     }"
   ></div>

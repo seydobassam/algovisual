@@ -1,11 +1,11 @@
 import { reactive } from '@vue/reactivity';
 import { getCurrentInstance, watch } from 'vue';
-import Node from "../../models/node-model";
+import GraphNode from "../../models/graph-node-model";
 
 const state = reactive({
   isMouseEvent: false,
   selectedNodeType: "empty",
-  prevNode: Node,
+  prevNode: GraphNode,
   startNode: null,
   finishNode: null
 });
