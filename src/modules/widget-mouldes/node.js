@@ -94,6 +94,52 @@ export default function node() {
     }
   }
 
+
+  function mousedownN(currentNode) {
+    if (empty || wall) {
+      currentNode.isWall = !currentNode.isWall;
+    }
+    downNode = currentNode;
+    mouseClicked = true;
+  }
+
+  function mouseenterN(currentEnterNode) {
+    if (!mouseClicked) return;
+    if (downNode.start  && !currentEnterNode.isEmpty) {
+      leaveNode.start = true;
+    }
+    if (downNode.finish  && !currentEnterNode.isEmpty) {
+      leaveNode.finish = true;
+    }
+    if (downNode.start && currentEnterNode.empty) {
+      currentEnterNode.start = true;
+      return
+    }
+     if (downNode.finish && currentEnterNode.empty) {
+      currentEnterNode.finish = true;
+      return
+    }
+    if (downNode.isWall && currentEnterNode.isEmpty) {
+      currentEnterNode.empty = true;
+      return;
+    } else if (downNode.empty && currentEnterNode.isWall) {
+       currentEnterNode.isWall = false;
+       return
+    }
+  }
+
+  function mouseLeaveN(leaveNode) {
+    if (!mouseClicked) return;
+    if (leaveNode.start || leaveNode.finish) {
+      leaveNode.empty = true;
+      leavedNode = leaveNode;
+    }
+  }
+
+  function mouseUpN() {
+    mouseClicked = false;
+  }
+
   return {
     onMouseDown,
     onMouseEnter,
