@@ -5,7 +5,8 @@ export default class GraphNode {
     this.type = type;
     this.isVisited = false;
     this.isAnimate = false;
+    this.isShortPath = false;
     this.distance = Infinity;
-    this.previousNode = Node;
+    this.previousNode = null;
   }
 }

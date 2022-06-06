@@ -40,6 +40,7 @@ export function dijkstra(myGrid, startNode, finishNode) {
   function getChangedNeighborNode(neighbor, currentNode) {
     neighbor.distance = currentNode.distance + 1;
     neighbor.isVisited = true;
+    neighbor.previousNode = currentNode;
     return neighbor;
   }
 }

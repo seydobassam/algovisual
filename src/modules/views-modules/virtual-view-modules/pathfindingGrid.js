@@ -81,7 +81,7 @@ export default function pathfindingGrid() {
     }
   );
 
-  function runDijkstraAlgo() {
+  async function runDijkstraAlgo() {
     if (state.isVirtualizing) return;
     resetVirtualizedNodes();
     state.visitedNodes = dijkstra(
@@ -89,7 +89,10 @@ export default function pathfindingGrid() {
       state.startNode,
       state.finishNode
     );
-    virtualizeDijkstra(state.visitedNodes);
+    setAlgoVirtualizing(true);
+    await virtualizeDijkstra();
+    await virtualizeShortestPath();
+    setAlgoVirtualizing(false);
   }
 
   function resetVirtualizedNodes() {
@@ -97,28 +100,54 @@ export default function pathfindingGrid() {
     const grid = state.grid;
     grid.forEach((row) => {
       for (const node of row) {
-        node.isVisited = false; 
+        node.isVisited = false;
         node.isAnimate = false;
+        node.isShortPath = false;
+        node.previousNode = null;
       }
-    });
-  }
-
-  function virtualizeDijkstra(visitedNodes) {
-    if (!visitedNodes?.length) return;
-    setAlgoVirtualizing(true);
-    visitedNodes.forEach((node, index) => {
-      setTimeout(() => {
-       const animateNode = state.grid[node.row][node.col];
-       animateNode.isAnimate = true; 
-        if (index === visitedNodes.length - 1) {
-          setAlgoVirtualizing(false);
-        }
-      }, 10 * index);
     });
   }
 
   function setAlgoVirtualizing(isVirtualizing) {
     state.isVirtualizing = isVirtualizing;
+  }
+
+  async function virtualizeDijkstra() {
+    const visitedNodes = state.visitedNodes;
+    if (!visitedNodes?.length) return;
+    await new Promise((resolve) => {
+      visitedNodes.forEach((node, index) => {
+        setTimeout(() => {
+          const animateNode = state.grid[node.row][node.col];
+          animateNode.isAnimate = true;
+          if (index === visitedNodes.length - 1) resolve();
+        }, 10 * index);
+      });
+    });
+  }
+
+  async function virtualizeShortestPath() {
+    const shortestPathNodes = getShortestPathNodes();
+    if (shortestPathNodes?.length <= 1) return;
+    await new Promise((resolve) => {
+      shortestPathNodes.forEach((node, index) => {
+        setTimeout(() => {
+          const pathNode = state.grid[node.row][node.col];
+          pathNode.isShortPath = true;
+          if (index === shortestPathNodes.length - 1) resolve();
+        }, 120 * index);
+      });
+    });
+  }
+
+  function getShortestPathNodes() {
+    const shortestPathNodes = [];
+    let currentNode = state.finishNode;
+    while (currentNode) {
+      shortestPathNodes.unshift(currentNode);
+      currentNode = currentNode.previousNode;
+    }
+    return shortestPathNodes;
   }
 
   return {

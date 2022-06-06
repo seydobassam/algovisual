@@ -10,6 +10,7 @@
       'node-finish': nodeProp.type === 'finish',
       'node-block': nodeProp.type === 'block',
       'node-visited': nodeProp.isAnimate,
+      'node-shortest-path': nodeProp.isShortPath,
     }"
   ></div>
 </template>
@@ -69,13 +70,13 @@ export default {
 
 @keyframes visitedAnimation {
   0% {
-    transform: scale(0.3);
+    transform: scale(0.4);
     background-color: rgb(61, 178, 255);
     border-radius: 20%;
   }
 
-  65% {
-    transform: scale(1.2);
+  75% {
+    transform: scale(1.1);
     background-color: rgb(0, 168, 181);
   }
 
@@ -98,18 +99,20 @@ export default {
 
 @keyframes shortestPath {
   0% {
-    transform: scale(0.6);
-    background-color: rgb(255, 254, 106);
+    transform: scale(0.3);
+    background-color: #09c372;
+    border-radius: 50%;
   }
 
   50% {
     transform: scale(1.2);
+
     background-color: rgb(255, 254, 106);
   }
 
   100% {
     transform: scale(1);
-    background-color: rgb(255, 254, 106);
+    background-color: #f9b4ab;
   }
 }
 </style>
