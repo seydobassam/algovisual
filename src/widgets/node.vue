@@ -9,6 +9,7 @@
       'node-start': nodeProp.type === 'start',
       'node-finish': nodeProp.type === 'finish',
       'node-block': nodeProp.type === 'block',
+      'node-visited': nodeProp.isAnimate,
     }"
   ></div>
 </template>
@@ -41,11 +42,14 @@ export default {
 }
 
 .node-start {
-  background-color: green;
+  background-image: url("../assets/point.png");
+  background-repeat: no-repeat;
 }
 
 .node-finish {
-  background-color: red;
+  background-image: url("../assets/city.png");
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .node-visited {
@@ -60,28 +64,24 @@ export default {
 }
 
 .node-block {
-  background-color: rgb(12, 53, 71);
+  background-color: rgb(235, 83, 83);
 }
 
 @keyframes visitedAnimation {
   0% {
     transform: scale(0.3);
-    background-color: rgba(0, 0, 66, 0.75);
-    border-radius: 100%;
+    background-color: rgb(61, 178, 255);
+    border-radius: 20%;
   }
 
-  50% {
-    background-color: rgba(17, 104, 217, 0.75);
-  }
-
-  75% {
+  65% {
     transform: scale(1.2);
-    background-color: rgba(0, 217, 159, 0.75);
+    background-color: rgb(0, 168, 181);
   }
 
   100% {
     transform: scale(1);
-    background-color: rgba(0, 190, 218, 0.75);
+    background-color: #ffeba7;
   }
 }
 

@@ -3,7 +3,7 @@
   <div class="grid-container" v-if="!isLoading">
     <div class="grid">
       <div class="grid-view">
-        <tr class="trs" v-for="(record, rowIndex) in nodes" :key="rowIndex">
+        <tr class="trs" v-for="(record, rowIndex) in grid" :key="rowIndex">
           <td v-for="(col, index) in record" :key="index">
             <Node @selectStartNode="selectStartNode($event)" @selectFinishNode="selectFinishNode($event)" :nodeProp="col"> </Node>
           </td>

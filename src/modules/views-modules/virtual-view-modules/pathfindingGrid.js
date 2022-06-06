@@ -4,24 +4,25 @@ import { dijkstra } from "../../../algos/pathfinding-algos/dijkstra";
 import GraphNode from "../../../models/graph-node-model";
 import toolbar from "../toolbar";
 
+const state = reactive({
+  grid: [],
+  visitedNodes: [],
+  startNode: GraphNode,
+  finishNode: GraphNode,
+  isVirtualizing: false,
+});
 export default function pathfindingGrid() {
-  const grid = reactive({
-    nodes: [],
-    startNode: GraphNode,
-    finishNode: GraphNode,
-  });
-
   const { toolbarState } = toolbar();
   const gridHeight = Math.floor(window.innerHeight / 37);
   const gridWidth = Math.floor(window.innerWidth / 31);
   const isLoading = ref(true);
 
   onMounted(() => {
-    initGrid();
+    createGrid();
     stopLoading();
   });
 
-  function initGrid() {
+  function createGrid() {
     const gridData = [];
     for (let row = 0; row < gridHeight; row++) {
       const currentRow = [];
@@ -30,14 +31,14 @@ export default function pathfindingGrid() {
       }
       gridData.push(currentRow);
     }
-    grid.nodes = gridData;
+    state.grid = gridData;
   }
 
   function createGraphNode(row, col) {
     const type = getNodeType(row, col);
     const graphNode = new GraphNode(row, col, type);
-    if (type === "start") grid.startNode = graphNode;
-    if (type === "finish") grid.finishNode = graphNode;    
+    if (type === "start") state.startNode = graphNode;
+    if (type === "finish") state.finishNode = graphNode;
     return graphNode;
   }
 
@@ -57,11 +58,11 @@ export default function pathfindingGrid() {
   }
 
   function selectStartNode(node) {
-    grid.startNode = node;
+    state.startNode = node;
   }
 
-  function selectFinishNode(node) {    
-    grid.finishNode = node;
+  function selectFinishNode(node) {
+    state.finishNode = node;
   }
 
   function stopLoading() {
@@ -73,16 +74,54 @@ export default function pathfindingGrid() {
     (value) => {
       switch (value.next().value) {
         case "dijkstra":
-           const result = dijkstra(grid.nodes, grid.startNode, grid.finishNode);
-          console.log("result: =>", result);
+          runDijkstraAlgo();
           break;
       }
-    },
-    { deep: true }
+    }
   );
 
+  function runDijkstraAlgo() {
+    if (state.isVirtualizing) return;
+    resetVirtualizedNodes();
+    state.visitedNodes = dijkstra(
+      state.grid,
+      state.startNode,
+      state.finishNode
+    );
+    virtualizeDijkstra(state.visitedNodes);
+  }
+
+  function resetVirtualizedNodes() {
+    if (state.visitedNodes?.length === 0) return;
+    const grid = state.grid;
+    grid.forEach((row) => {
+      for (const node of row) {
+        node.isVisited = false; 
+        node.isAnimate = false;
+      }
+    });
+  }
+
+  function virtualizeDijkstra(visitedNodes) {
+    if (!visitedNodes?.length) return;
+    setAlgoVirtualizing(true);
+    visitedNodes.forEach((node, index) => {
+      setTimeout(() => {
+       const animateNode = state.grid[node.row][node.col];
+       animateNode.isAnimate = true; 
+        if (index === visitedNodes.length - 1) {
+          setAlgoVirtualizing(false);
+        }
+      }, 10 * index);
+    });
+  }
+
+  function setAlgoVirtualizing(isVirtualizing) {
+    state.isVirtualizing = isVirtualizing;
+  }
+
   return {
-    gridNodesState: toRefs(grid),
+    gridNodesState: toRefs(state),
     isLoading: computed(() => isLoading.value),
     selectStartNode,
     selectFinishNode,

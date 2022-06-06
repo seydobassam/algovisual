@@ -35,7 +35,7 @@ export class MinHeap {
     const parentIndex = this.getParentNodeIndex(index);
     const parentNode = this.array[parentIndex];
     const node = this.array[index];
-    if (!parentNode || parentNode.distance < node.distance) return;
+    if (!parentNode || parentNode?.distance < node?.distance) return;
     // Swap the nodes 
     [this.array[index], this.array[parentIndex]] = [
       this.array[parentIndex],
