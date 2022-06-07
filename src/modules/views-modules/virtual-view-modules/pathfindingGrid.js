@@ -100,12 +100,16 @@ export default function pathfindingGrid() {
     const grid = state.grid;
     grid.forEach((row) => {
       for (const node of row) {
-        node.isVisited = false;
-        node.isAnimate = false;
-        node.isShortPath = false;
-        node.previousNode = null;
+        resetNode(node);
       }
     });
+  }
+
+  function resetNode(node) {
+    node.isVisited = false;
+    node.isAnimate = false;
+    node.isShortPath = false;
+    node.previousNode = null;
   }
 
   function setAlgoVirtualizing(isVirtualizing) {
@@ -155,5 +159,6 @@ export default function pathfindingGrid() {
     isLoading: computed(() => isLoading.value),
     selectStartNode,
     selectFinishNode,
+    resetNode
   };
 }

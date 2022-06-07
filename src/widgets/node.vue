@@ -20,7 +20,7 @@ import node from "../modules/widget-mouldes/node.js";
 
 export default {
   name: "node",
-  emits: ["selectStartNode", "selectFinishNode"],
+  emits: ["onSelectNode", "selectStartNode", "selectFinishNode"],
   props: {
     nodeProp: {
       type: [Object],

@@ -5,7 +5,7 @@
       <div class="grid-view">
         <tr class="trs" v-for="(record, rowIndex) in grid" :key="rowIndex">
           <td v-for="(col, index) in record" :key="index">
-            <Node @selectStartNode="selectStartNode($event)" @selectFinishNode="selectFinishNode($event)" :nodeProp="col"> </Node>
+            <Node @selectStartNode="selectStartNode($event)" @selectFinishNode="selectFinishNode($event)" @onSelectNode="resetNode($event)" :nodeProp="col"> </Node>
           </td>
         </tr>
       </div>
@@ -17,6 +17,7 @@
 import Node from "../../../widgets/node.vue";
 import Loading from "../../../widgets/loading.vue";
 import pathfindingGrid from "../../../modules/views-modules/virtual-view-modules/pathfindingGrid";
+import { NodeType } from '../../../constants/Node-type';
 
 export default {
   name: "Grid",
@@ -26,9 +27,9 @@ export default {
   },
 
   setup() {
-    const { gridNodesState, isLoading, selectStartNode, selectFinishNode } = pathfindingGrid();
+    const { gridNodesState, isLoading, selectStartNode, selectFinishNode, resetNode } = pathfindingGrid();
 
-    return { ...gridNodesState, isLoading, selectStartNode, selectFinishNode};
+    return { ...gridNodesState, isLoading, selectStartNode, selectFinishNode, resetNode};
   },
 };
 </script>
