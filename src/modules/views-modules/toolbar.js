@@ -4,6 +4,7 @@ const state = reactive({
   selectedAlgoType: Object,
   selectedAlgorthim: Object,
   isMobileMenuOpen: false,
+  isRunVirtualizeFreeze: false,
   event: new Map(),
 });
 
@@ -30,8 +31,13 @@ export default function toolbar() {
     state.event = new Map().set(state.selectedAlgorthim.event, {});
   }
 
+  function setRunVirtualizeFreeze(isFreeze){
+    state.isRunVirtualizeFreeze = isFreeze;
+  }
+
   return {
     toolbarState: toRefs(state),
+    setRunVirtualizeFreeze,
     toggleMobileMenu,
     setDropdownSelections,
     setAlgorthim,

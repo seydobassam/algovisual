@@ -1,6 +1,5 @@
 <template>
   <Loading :loading="isLoading" />
-  
   <div class="grid-container" v-if="!isLoading">
     <div class="grid">
       <div class="grid-view">

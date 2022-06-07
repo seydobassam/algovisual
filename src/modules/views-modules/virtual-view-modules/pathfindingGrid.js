@@ -1,5 +1,5 @@
-import { reactive, toRefs, computed } from "@vue/reactivity";
-import { onMounted, ref, watch } from "vue";
+import { reactive, toRefs } from "@vue/reactivity";
+import { onMounted, watch } from "vue";
 import { dijkstra } from "../../../algos/pathfinding-algos/dijkstra";
 import { NodeType } from "../../../constants/Node-type";
 import GraphNode from "../../../models/graph-node-model";
@@ -23,7 +23,7 @@ export default function pathfindingGrid() {
     onMouseLeave,
     onMouseUp,
   } = nodeModule();
-  const { toolbarState } = toolbar();
+  const { setRunVirtualizeFreeze, toolbarState } = toolbar();
   const gridHeight = Math.floor(window.innerHeight / 37);
   const gridWidth = Math.floor(window.innerWidth / 31);
 
@@ -130,6 +130,7 @@ export default function pathfindingGrid() {
 
   function setComponentFreeze(freeze) {
     state.isFreeze = freeze;
+    setRunVirtualizeFreeze(freeze);
     setFreezeClick(freeze);
   }
 
