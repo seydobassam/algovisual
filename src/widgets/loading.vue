@@ -17,9 +17,6 @@ export default {
       type: Boolean,
     },
   },
-  setup() {
-    return {};
-  },
 };
 </script>
 

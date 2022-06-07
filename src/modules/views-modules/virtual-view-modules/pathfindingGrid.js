@@ -3,6 +3,7 @@ import { onMounted, ref, watch } from "vue";
 import { dijkstra } from "../../../algos/pathfinding-algos/dijkstra";
 import { NodeType } from "../../../constants/Node-type";
 import GraphNode from "../../../models/graph-node-model";
+import nodeModule from "../../widget-mouldes/node-module";
 import toolbar from "../toolbar";
 
 const state = reactive({
@@ -10,13 +11,21 @@ const state = reactive({
   visitedNodes: [],
   startNode: GraphNode,
   finishNode: GraphNode,
-  isVirtualizing: false,
+  isFreeze: false,
+  isLoading: true,
 });
 export default function pathfindingGrid() {
+  const {
+    currentNode,
+    setFreezeClick,
+    onMouseDown,
+    onMouseEnter,
+    onMouseLeave,
+    onMouseUp,
+  } = nodeModule();
   const { toolbarState } = toolbar();
   const gridHeight = Math.floor(window.innerHeight / 37);
   const gridWidth = Math.floor(window.innerWidth / 31);
-  const isLoading = ref(true);
 
   onMounted(() => {
     createGrid();
@@ -58,17 +67,24 @@ export default function pathfindingGrid() {
     return NodeType.empty;
   }
 
-  function selectStartNode(node) {
-    state.startNode = node;
-  }
-
-  function selectFinishNode(node) {
-    state.finishNode = node;
-  }
-
   function stopLoading() {
-    setTimeout(() => (isLoading.value = false), 60);
+    setTimeout(() => (state.isLoading = false), 30);
   }
+
+  watch(
+    () => currentNode.value,
+    (node) => {
+      switch (node.type) {
+        case NodeType.start:
+          state.startNode = node;
+          break;
+        case NodeType.finish:
+          state.finishNode = node;
+          break;
+      }
+      resetNode(node);
+    }
+  );
 
   watch(
     () => toolbarState.event.value.keys(),
@@ -82,17 +98,17 @@ export default function pathfindingGrid() {
   );
 
   async function runDijkstraAlgo() {
-    if (state.isVirtualizing) return;
+    if (state.isFreeze) return;
     resetVirtualizedNodes();
     state.visitedNodes = dijkstra(
       state.grid,
       state.startNode,
       state.finishNode
     );
-    setAlgoVirtualizing(true);
+    setComponentFreeze(true);
     await virtualizeDijkstra();
     await virtualizeShortestPath();
-    setAlgoVirtualizing(false);
+    setComponentFreeze(false);
   }
 
   function resetVirtualizedNodes() {
@@ -112,8 +128,9 @@ export default function pathfindingGrid() {
     node.previousNode = null;
   }
 
-  function setAlgoVirtualizing(isVirtualizing) {
-    state.isVirtualizing = isVirtualizing;
+  function setComponentFreeze(freeze) {
+    state.isFreeze = freeze;
+    setFreezeClick(freeze);
   }
 
   async function virtualizeDijkstra() {
@@ -156,9 +173,9 @@ export default function pathfindingGrid() {
 
   return {
     gridNodesState: toRefs(state),
-    isLoading: computed(() => isLoading.value),
-    selectStartNode,
-    selectFinishNode,
-    resetNode
+    onMouseDown,
+    onMouseEnter,
+    onMouseLeave,
+    onMouseUp,
   };
 }

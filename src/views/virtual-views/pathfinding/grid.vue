@@ -1,11 +1,19 @@
 <template>
   <Loading :loading="isLoading" />
+  
   <div class="grid-container" v-if="!isLoading">
     <div class="grid">
       <div class="grid-view">
-        <tr class="trs" v-for="(record, rowIndex) in grid" :key="rowIndex">
-          <td v-for="(col, index) in record" :key="index">
-            <Node @selectStartNode="selectStartNode($event)" @selectFinishNode="selectFinishNode($event)" @onSelectNode="resetNode($event)" :nodeProp="col"> </Node>
+        <tr class="trs" v-for="(row, rowIndex) in grid" :key="rowIndex">
+          <td v-for="(node, index) in row" :key="index">
+            <Node
+              @mousedown.prevent="onMouseDown(node)"
+              @mouseenter.prevent="onMouseEnter(node)"
+              @mouseleave.prevent="onMouseLeave(node)"
+              @mouseup.prevent="onMouseUp()"
+              :node="node"
+            >
+            </Node>
           </td>
         </tr>
       </div>
@@ -17,7 +25,6 @@
 import Node from "../../../widgets/node.vue";
 import Loading from "../../../widgets/loading.vue";
 import pathfindingGrid from "../../../modules/views-modules/virtual-view-modules/pathfindingGrid";
-import { NodeType } from '../../../constants/Node-type';
 
 export default {
   name: "Grid",
@@ -25,11 +32,23 @@ export default {
     Node,
     Loading,
   },
-
   setup() {
-    const { gridNodesState, isLoading, selectStartNode, selectFinishNode, resetNode } = pathfindingGrid();
+    const {
+      gridNodesState,
+      isLoading,
+      onMouseDown,
+      onMouseEnter,
+      onMouseLeave,
+      onMouseUp,
+    } = pathfindingGrid();
 
-    return { ...gridNodesState, isLoading, selectStartNode, selectFinishNode, resetNode};
+    return {
+      ...gridNodesState,
+      onMouseDown,
+      onMouseEnter,
+      onMouseLeave,
+      onMouseUp,
+    };
   },
 };
 </script>

@@ -1,27 +1,29 @@
-import { getCurrentInstance } from "vue";
+import { computed, reactive } from "vue";
 import { NodeType } from "../../constants/Node-type";
 
-let startNode = null;
-let finishNode = null;
-let leavedNode = null;
-let clickedType = null;
-export default function node() {
-  const { emit } = getCurrentInstance();
 
+const state = reactive({
+  currentNode: null,
+  leavedNode: null,
+  clickedType: null,
+  freezeClick: false,
+});
+export default function nodeModule() {
   function onMouseDown(downNode) {
+    if (state.freezeClick) return; 
     const downNodeType = downNode.type;
     if (downNodeType === NodeType.empty) {
       downNode.type = NodeType.block;
-      emit("onSelectNode", downNode);
+      setCurrentNode(downNode);
     } else if (downNodeType === NodeType.block) {
       downNode.type = NodeType.empty;
-      emit("onSelectNode", downNode);
+      setCurrentNode(downNode);
     }
-    clickedType = downNode.type;
+    state.clickedType = downNode.type;
   }
 
   function onMouseEnter(enterNode) {
-    if (!clickedType) return;
+    if (!state.clickedType) return;
     const enterNodeType = enterNode.type;
     handleEnterStartNode(enterNodeType, enterNode);
     handleEnterFinishNode(enterNodeType, enterNode);
@@ -30,13 +32,13 @@ export default function node() {
   }
 
   function handleEnterStartNode(enterNodeType, enterNode) {
-    if (clickedType !== NodeType.start) return;
+    if (state.clickedType !== NodeType.start) return;
     handleNodeAllowedToChange(enterNodeType, enterNode, NodeType.start);
     handlePrevNode(enterNodeType, NodeType.start);
   }
 
   function handleEnterFinishNode(enterNodeType, enterNode) {
-      if (clickedType != NodeType.finish) return;
+      if (state.clickedType != NodeType.finish) return;
       handleNodeAllowedToChange(enterNodeType, enterNode, NodeType.finish);
       handlePrevNode(enterNodeType, NodeType.finish);
   }
@@ -47,62 +49,56 @@ export default function node() {
     // if start or finish node is allowed to be changed then set the prev node to empty.
     handlePrevNode(enterNodeType);
     enterNode.type = newType;
-    setNode(enterNode)
+    setCurrentNode(enterNode);
   }
 
   function handlePrevNode(enterNodeType, prevNodeType){
-    if (!leavedNode) return;
+    if (!state.leavedNode) return;
     if (enterNodeType !== NodeType.empty) {
-      leavedNode.type = prevNodeType;
+      state.leavedNode.type = prevNodeType;
       return;
     }  
-    leavedNode.type = NodeType.empty;
-  }
-
-  function setNode(node) {
-    if (node.type === NodeType.start) {
-      startNode = node;
-    } 
-    if (node.type === NodeType.finish) {
-      finishNode = node;
-    }
+    state.leavedNode.type = NodeType.empty;
   }
 
   function handleEnterBlockNodes(enterNodeType, enterNode) {
-    if (clickedType !== NodeType.block || enterNodeType !== NodeType.empty) return
+    if (state.clickedType !== NodeType.block || enterNodeType !== NodeType.empty) return
     enterNode.type = NodeType.block;
-    emit("onSelectNode", enterNode);
+    setCurrentNode(enterNode);
   }
 
   function handleEnterEmptyNodes(enterNodeType, enterNode) {
-    if (clickedType !==  NodeType.empty || enterNodeType !== NodeType.block) return;
+    if (state.clickedType !==  NodeType.empty || enterNodeType !== NodeType.block) return;
     enterNode.type = NodeType.empty;
-    emit("onSelectNode", enterNode);
+    setCurrentNode(enterNode);
   }
 
   function onMouseLeave(currentLeaveNode) {
-    if (!clickedType) return;
+    if (!state.clickedType) return;
     const currentLeaveNodeType = currentLeaveNode.type;
-    if (clickedType !== NodeType.start 
-      && clickedType !== NodeType.finish 
-      || currentLeaveNodeType !== clickedType) return;
+    if (state.clickedType !== NodeType.start 
+      && state.clickedType !== NodeType.finish 
+      || currentLeaveNodeType !== state.clickedType) return;
     currentLeaveNode.type = NodeType.empty;
-    leavedNode = currentLeaveNode;
+    state.leavedNode = currentLeaveNode;
     return;
   }
 
   function onMouseUp() {
-    clickedType = null;
-    if (startNode) {
-      emit("selectStartNode", startNode);
-    }  else if (finishNode) {
-      emit("selectFinishNode", finishNode);
-    }
-    startNode = null;
-    finishNode = null;
+    state.clickedType = null;
+  }
+
+  function setCurrentNode(node) {
+    state.currentNode = node;
+  }
+
+  function setFreezeClick(freeze) {
+    state.freezeClick = freeze;
   }
 
   return {
+    currentNode: computed(() => state.currentNode),
+    setFreezeClick,
     onMouseDown,
     onMouseEnter,
     onMouseLeave,

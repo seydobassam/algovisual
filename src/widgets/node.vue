@@ -1,36 +1,23 @@
 <template>
   <div
-    @mousedown.prevent="onMouseDown(nodeProp)"
-    @mouseenter.prevent="onMouseEnter(nodeProp)"
-    @mouseleave.prevent="onMouseLeave(nodeProp)"
-    @mouseup.prevent="onMouseUp()"
     class="node"
     v-bind:class="{
-      'node-start': nodeProp.type === 'start',
-      'node-finish': nodeProp.type === 'finish',
-      'node-block': nodeProp.type === 'block',
-      'node-visited': nodeProp.isAnimate,
-      'node-shortest-path': nodeProp.isShortPath,
+      'node-start': node.type === 'start',
+      'node-finish': node.type === 'finish',
+      'node-block': node.type === 'block',
+      'node-visited': node.isAnimate,
+      'node-shortest-path': node.isShortPath,
     }"
   ></div>
 </template>
 
 <script>
-import node from "../modules/widget-mouldes/node.js";
-
 export default {
   name: "node",
-  emits: ["onSelectNode", "selectStartNode", "selectFinishNode"],
   props: {
-    nodeProp: {
+    node: {
       type: [Object],
     },
-  },
-
-  setup() {
-    const { onMouseDown, onMouseEnter, onMouseLeave, onMouseUp } = node();
-
-    return { onMouseDown, onMouseEnter, onMouseLeave, onMouseUp };
   },
 };
 </script>
