@@ -1,4 +1,5 @@
 import { MinHeap } from "../../dataStructures/minHeap";
+import { AlgoUtil } from "../algo-utility/alog-util";
 
 export function dijkstra(myGrid, startNode, finishNode) {
   var minHeap = new MinHeap();
@@ -8,7 +9,6 @@ export function dijkstra(myGrid, startNode, finishNode) {
   minHeap.add(startNode);
   while (!minHeap.isEmpty()) {
     const currentNode = minHeap.pop();
-    currentNode.isVisited = true;
     visitedNodes.push(currentNode);
     if (currentNode === finishNode) return visitedNodes;
     addNeighborsToHeap(myGrid, currentNode);
@@ -16,25 +16,12 @@ export function dijkstra(myGrid, startNode, finishNode) {
   return visitedNodes;
 
   function addNeighborsToHeap(grid, currentNode) {
-    let neighbors = [];
-    const row = currentNode.row;
-    const col = currentNode.col;
-    if (row > 0) neighbors.push(grid[row - 1][col]);
-    if (row < grid.length - 1) neighbors.push(grid[row + 1][col]);
-    if (col > 0) neighbors.push(grid[row][col - 1]);
-    if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]);
+    const neighbors = AlgoUtil.getNodeNeighborsFromGrid(grid, currentNode);
     neighbors.forEach((neighbor) => {
-       if (isNodeAllowed(neighbor)) {
+       if (AlgoUtil.isNodeAllowed(neighbor)) {
         minHeap.add(getChangedNeighborNode(neighbor, currentNode));    
        }
     });
-  }
-
-  function isNodeAllowed(node) {
-    if (!node.isVisited && node.type !== "block") {
-      return true;
-    }
-    return false;
   }
 
   function getChangedNeighborNode(neighbor, currentNode) {

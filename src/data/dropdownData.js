@@ -24,6 +24,7 @@ export const dropdownData = [
       {
         id: "5",
         name: "Breadth First Search",
+        event: "bfs"
       },
       {
         id: "6",

@@ -1,5 +1,7 @@
 import { reactive, toRefs } from "@vue/reactivity";
 import { onMounted, watch } from "vue";
+import { AlgoUtil } from "../../../algos/algo-utility/alog-util";
+import { bfs } from "../../../algos/pathfinding-algos/bfs";
 import { dijkstra } from "../../../algos/pathfinding-algos/dijkstra";
 import { NodeType } from "../../../constants/Node-type";
 import GraphNode from "../../../models/graph-node-model";
@@ -93,6 +95,9 @@ export default function pathfindingGrid() {
         case "dijkstra":
           runDijkstraAlgo();
           break;
+        case "bfs":
+          runBfsAlgo();
+          break;
       }
     }
   );
@@ -106,7 +111,17 @@ export default function pathfindingGrid() {
       state.finishNode
     );
     setComponentFreeze(true);
-    await virtualizeDijkstra();
+    await virtualizeNodes();
+    await virtualizeShortestPath();
+    setComponentFreeze(false);
+  }
+
+  async function runBfsAlgo() {
+    if (state.isFreeze) return;
+    resetVirtualizedNodes();
+    state.visitedNodes = bfs(state.grid, state.startNode, state.finishNode);
+    setComponentFreeze(true);
+    await virtualizeNodes();
     await virtualizeShortestPath();
     setComponentFreeze(false);
   }
@@ -134,7 +149,7 @@ export default function pathfindingGrid() {
     setFreezeClick(freeze);
   }
 
-  async function virtualizeDijkstra() {
+  async function virtualizeNodes() {
     const visitedNodes = state.visitedNodes;
     if (!visitedNodes?.length) return;
     await new Promise((resolve) => {
@@ -149,7 +164,7 @@ export default function pathfindingGrid() {
   }
 
   async function virtualizeShortestPath() {
-    const shortestPathNodes = getShortestPathNodes();
+    const shortestPathNodes = AlgoUtil.getShortestPathNodes(state.finishNode);
     if (shortestPathNodes?.length <= 1) return;
     await new Promise((resolve) => {
       shortestPathNodes.forEach((node, index) => {
@@ -157,19 +172,9 @@ export default function pathfindingGrid() {
           const pathNode = state.grid[node.row][node.col];
           pathNode.isShortPath = true;
           if (index === shortestPathNodes.length - 1) resolve();
-        }, 120 * index);
+        }, 100 * index);
       });
     });
-  }
-
-  function getShortestPathNodes() {
-    const shortestPathNodes = [];
-    let currentNode = state.finishNode;
-    while (currentNode) {
-      shortestPathNodes.unshift(currentNode);
-      currentNode = currentNode.previousNode;
-    }
-    return shortestPathNodes;
   }
 
   return {
