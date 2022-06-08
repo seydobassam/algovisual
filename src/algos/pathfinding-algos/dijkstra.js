@@ -1,7 +1,7 @@
 import { MinHeap } from "../../dataStructures/minHeap";
 import { AlgoUtil } from "../algo-utility/alog-util";
 
-export function dijkstra(myGrid, startNode, finishNode) {
+export function dijkstra(grid, startNode, finishNode) {
   var minHeap = new MinHeap();
   const visitedNodes = [];
   startNode.isVisited = true;
@@ -11,7 +11,7 @@ export function dijkstra(myGrid, startNode, finishNode) {
     const currentNode = minHeap.pop();
     visitedNodes.push(currentNode);
     if (currentNode === finishNode) return visitedNodes;
-    addNeighborsToHeap(myGrid, currentNode);
+    addNeighborsToHeap(grid, currentNode);
   }
   return visitedNodes;
 
