@@ -4,6 +4,7 @@ import { AlgoUtil } from "../../../algos/algo-utility/alog-util";
 import { astar } from "../../../algos/pathfinding-algos/astart";
 import { bfs } from "../../../algos/pathfinding-algos/bfs";
 import { dijkstra } from "../../../algos/pathfinding-algos/dijkstra";
+import { greedyBFS } from "../../../algos/pathfinding-algos/greedyBFS";
 import { NodeType } from "../../../constants/Node-type";
 import GraphNode from "../../../models/graph-node-model";
 import nodeModule from "../../widget-mouldes/node-module";
@@ -100,7 +101,7 @@ export default function pathfindingGrid() {
       runAlgo(value.next().value);
       setComponentFreeze(true);
       await virtualizeNodes();
-     //  await virtualizeShortestPath();
+      await virtualizeShortestPath();
       setComponentFreeze(false);
     }
   );
@@ -115,6 +116,9 @@ export default function pathfindingGrid() {
         break;
       case "astar":
         runAstarAlgo();
+        break;
+      case "greedyBFS":
+        runGreedyBFS();
         break;
     }
   }
@@ -133,6 +137,10 @@ export default function pathfindingGrid() {
 
   function runAstarAlgo() {
     state.visitedNodes = astar(state.grid, state.startNode, state.finishNode);
+  }
+
+  function runGreedyBFS() {
+    state.visitedNodes = greedyBFS(state.grid, state.startNode, state.finishNode);
   }
 
   function setComponentFreeze(freeze) {
