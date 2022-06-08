@@ -20,6 +20,27 @@ export class MinHeap {
     this.siftUp(this.array.length - 1);
   }
 
+  addAt(index, item) {
+    this.array[index] = item;
+    this.siftUp(this.array.length - 1);
+  }
+
+  getAt(index) {
+    return this.array[index];
+  }
+
+  contains(item) {
+    return this.array.includes(item);
+  }
+
+  isEmpty() {
+    return this.array.length <= 1;
+  }
+
+  length() {
+    return this.array.length;
+  }
+
   pop() {
     if (this.array.length <= 1) return null;
     if (this.array.length === 2) return this.array.pop();
@@ -36,7 +57,7 @@ export class MinHeap {
     const parentNode = this.array[parentIndex];
     const node = this.array[index];
     if (!parentNode || parentNode?.distance < node?.distance) return;
-    // Swap the nodes 
+    // Swap the nodes
     [this.array[index], this.array[parentIndex]] = [
       this.array[parentIndex],
       this.array[index],
@@ -68,16 +89,12 @@ export class MinHeap {
       rightKidIndex
     );
 
-    // Swap the nodes 
+    // Swap the nodes
     [this.array[swapingIndex], this.array[index]] = [
       this.array[index],
       this.array[swapingIndex],
     ];
     this.siftDown(swapingIndex);
-  }
-
-  isEmpty() {
-    return this.array.length <= 1;
   }
 
   getNodeDistance(index) {
