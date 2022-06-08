@@ -6,7 +6,10 @@ export default class GraphNode {
     this.isVisited = false;
     this.isAnimate = false;
     this.isShortPath = false;
+    // This is used as f(n) for astar algo
     this.distance = Infinity;
     this.previousNode = null;
+    this.cost = Infinity;
+    this.heuristicDistance = Infinity;
   }
 }

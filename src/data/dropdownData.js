@@ -12,10 +12,12 @@ export const dropdownData = [
       {
         id: "2",
         name: "A* Search Algorithm",
+        event: "astar"
       },
       {
         id: "3",
         name: "Greedy Best-first Search",
+        event: "greedyBFS"
       },
       {
         id: "4",

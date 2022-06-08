@@ -1,6 +1,7 @@
 import { reactive, toRefs } from "@vue/reactivity";
 import { onMounted, watch } from "vue";
 import { AlgoUtil } from "../../../algos/algo-utility/alog-util";
+import { astar } from "../../../algos/pathfinding-algos/astart";
 import { bfs } from "../../../algos/pathfinding-algos/bfs";
 import { dijkstra } from "../../../algos/pathfinding-algos/dijkstra";
 import { NodeType } from "../../../constants/Node-type";
@@ -83,6 +84,9 @@ export default function pathfindingGrid() {
         case NodeType.finish:
           state.finishNode = node;
           break;
+        case NodeType.finish:
+          state.finishNode = node;
+          break;
       }
       resetNode(node);
     }
@@ -90,40 +94,58 @@ export default function pathfindingGrid() {
 
   watch(
     () => toolbarState.event.value.keys(),
-    (value) => {
-      switch (value.next().value) {
-        case "dijkstra":
-          runDijkstraAlgo();
-          break;
-        case "bfs":
-          runBfsAlgo();
-          break;
-      }
+    async (value) => {
+      if (state.isFreeze) return;
+      resetVirtualizedNodes();
+      runAlgo(value.next().value);
+      setComponentFreeze(true);
+      await virtualizeNodes();
+     //  await virtualizeShortestPath();
+      setComponentFreeze(false);
     }
   );
 
-  async function runDijkstraAlgo() {
-    if (state.isFreeze) return;
-    resetVirtualizedNodes();
+  function runAlgo(algo) {
+    switch (algo) {
+      case "dijkstra":
+        runDijkstraAlgo();
+        break;
+      case "bfs":
+        runBfsAlgo();
+        break;
+      case "astar":
+        runAstarAlgo();
+        break;
+    }
+  }
+
+  function runDijkstraAlgo() {
     state.visitedNodes = dijkstra(
       state.grid,
       state.startNode,
       state.finishNode
     );
-    setComponentFreeze(true);
-    await virtualizeNodes();
-    await virtualizeShortestPath();
-    setComponentFreeze(false);
   }
 
-  async function runBfsAlgo() {
-    if (state.isFreeze) return;
-    resetVirtualizedNodes();
+  function runBfsAlgo() {
     state.visitedNodes = bfs(state.grid, state.startNode, state.finishNode);
-    setComponentFreeze(true);
-    await virtualizeNodes();
-    await virtualizeShortestPath();
-    setComponentFreeze(false);
+  }
+
+  function runAstarAlgo() {
+    state.visitedNodes = astar(state.grid, state.startNode, state.finishNode);
+  }
+
+  function setComponentFreeze(freeze) {
+    state.isFreeze = freeze;
+    setRunVirtualizeFreeze(freeze);
+    setFreezeClick(freeze);
+  }
+
+  function resetNode(node) {
+    node.isVisited = false;
+    node.isAnimate = false;
+    node.isShortPath = false;
+    node.previousNode = null;
   }
 
   function resetVirtualizedNodes() {
@@ -134,19 +156,6 @@ export default function pathfindingGrid() {
         resetNode(node);
       }
     });
-  }
-
-  function resetNode(node) {
-    node.isVisited = false;
-    node.isAnimate = false;
-    node.isShortPath = false;
-    node.previousNode = null;
-  }
-
-  function setComponentFreeze(freeze) {
-    state.isFreeze = freeze;
-    setRunVirtualizeFreeze(freeze);
-    setFreezeClick(freeze);
   }
 
   async function virtualizeNodes() {
