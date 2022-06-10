@@ -1,5 +1,5 @@
 import { reactive, toRefs } from "@vue/reactivity";
-import { onMounted, watch } from "vue";
+import { computed, onMounted, watch } from "vue";
 import { AlgoUtil } from "../../../algos/algo-utility/alog-util";
 import { astar } from "../../../algos/pathfinding-algos/astart";
 import { bfs } from "../../../algos/pathfinding-algos/bfs";
@@ -205,9 +205,9 @@ export default function pathfindingGrid() {
   }
 
   function resetNode(node) {
-    node.isVisited = false;
     node.isAnimate = false;
     node.isShortPath = false;
+    node.isVisited = false;
     node.previousNode = null;
   }
 
@@ -221,11 +221,41 @@ export default function pathfindingGrid() {
     setFreezeClick(freeze);
   }
 
+  function clearWalls(){
+    const grid = state.grid;
+    grid.forEach((row) => {
+      for (const node of row) {
+        if (node.type === NodeType.block) {
+          node.type = NodeType.empty;
+        }
+      }
+    });
+  }
+
+  function clearPaths(){
+    const grid = state.grid;
+    grid.forEach((row) => {
+      for (const node of row) {
+        if (node.isShortPath) {
+          resetNode(node);
+        }
+      }
+    });
+  }
+
+  function resetGrid(){
+    createGrid();
+  }
+
   return {
     gridNodesState: toRefs(state),
+    algo: computed(()=> toolbarState.selectedAlgorthim.value),
     onMouseDown,
     onMouseEnter,
     onMouseLeave,
     onMouseUp,
+    clearWalls,
+    clearPaths,
+    resetGrid,
   };
 }

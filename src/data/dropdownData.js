@@ -7,27 +7,32 @@ export const dropdownData = [
       {
         id: "1",
         name: "Dijkstra’s Algorithm",
-        event: "dijkstra"
+        event: "dijkstra",
+        info: ""
       },
       {
         id: "2",
         name: "A* Search Algorithm",
-        event: "astar"
+        event: "astar",
+        info: ""
       },
       {
         id: "3",
         name: "Greedy Best-first Search",
-        event: "greedyBFS"
+        event: "greedyBFS",
+        info: ""
       },
       {
         id: "4",
         name: "Bidirectional Best-first Search",
-        event: "bidirectionalGreedyBFS"
+        event: "bidirectionalGreedyBFS",
+        info: ""
       },
       {
         id: "5",
         name: "Breadth First Search",
-        event: "bfs"
+        event: "bfs",
+        info: ""
       },
     ],
   },
