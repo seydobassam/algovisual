@@ -149,25 +149,29 @@ export default function pathfindingGrid() {
   }
 
   async function runVirtualizer(visitedNodes){
+    setComponentFreeze(true);
     setNodesVisited(true);
     const shortestPathNodes = AlgoUtil.getShortestPathFromNode(state.finishNode);
     await virtualizeVisitedNodes(visitedNodes);
     await virtualizeShortestPath(shortestPathNodes);
+    setComponentFreeze(false);
   }
 
   async function runBidirectionalVirtualizer(visitedNodes){
+    setComponentFreeze(true);
     setNodesVisited(true);
+    virtualizeVisitedNodes(visitedNodes[0]);
+    await virtualizeVisitedNodes(visitedNodes[1]);
+    if (visitedNodes[2]) return;
     const lastStartVisitedNode = AlgoUtil.getLastVisitedNodeByIndex(visitedNodes, 0);
     const lastFinishVisitedNode = AlgoUtil.getLastVisitedNodeByIndex(visitedNodes, 1);
     const shortestPathNodes = AlgoUtil.getShortestPathFromBidirectionalNodes(lastStartVisitedNode, lastFinishVisitedNode);
-    virtualizeVisitedNodes(visitedNodes[0]);
-    await virtualizeVisitedNodes(visitedNodes[1]);
     await virtualizeShortestPath(shortestPathNodes)
+    setComponentFreeze(false);
   }
 
   async function virtualizeVisitedNodes(visitedNodes) {
     if (!visitedNodes.length > 0) return;
-    setComponentFreeze(true);
     await new Promise((resolve) => {
       visitedNodes.forEach((node, index) => {
         setTimeout(() => {
@@ -190,7 +194,6 @@ export default function pathfindingGrid() {
         }, 100 * index);
       });
     });
-    setComponentFreeze(false);
   }
 
   function resetVirtualizedNodes() {
