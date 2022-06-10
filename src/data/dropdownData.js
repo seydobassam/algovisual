@@ -1,5 +1,32 @@
 export const dropdownData = [
   {
+    id: 1,
+    name: "Binary Tree",
+    component: "BinarySearchTree",
+    algorithms: [
+      {
+        id: "1",
+        name: "DFS Inorder",
+        event: "inorder"
+      },
+      {
+        id: "2",
+        name: "DFS Preorder",
+        event: "preOrder"
+      },
+      {
+        id: "3",
+        name: "DFS Postorder",
+        event: "postOrder"
+      },
+      {
+        id: "4",
+        name: "BFS LevelOrder",
+        event: "levelOrder"
+      },
+    ],
+  },
+  {
     id: 3,
     name: "Pathfinding",
     component: "Grid",
@@ -33,33 +60,6 @@ export const dropdownData = [
         name: "Breadth First Search",
         event: "bfs",
         info: ""
-      },
-    ],
-  },
-  {
-    id: 1,
-    name: "Binary Tree",
-    component: "BinarySearchTree",
-    algorithms: [
-      {
-        id: "1",
-        name: "DFS Inorder",
-        event: "inorder"
-      },
-      {
-        id: "2",
-        name: "DFS Preorder",
-        event: "preOrder"
-      },
-      {
-        id: "3",
-        name: "DFS Postorder",
-        event: "postOrder"
-      },
-      {
-        id: "4",
-        name: "BFS LevelOrder",
-        event: "levelOrder"
       },
     ],
   },
