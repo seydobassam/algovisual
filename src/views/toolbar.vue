@@ -15,7 +15,7 @@
             class="dropdown"
             @select="setAlgorthim($event)"
             :selections="selectedAlgoType.algorithms"
-            :width="'220px'"
+            :width="'260px'"
         /></span>
         <span>
           <div

@@ -21,16 +21,13 @@ export const dropdownData = [
       },
       {
         id: "4",
-        name: "Swarm Algorithm",
+        name: "Bidirectional Best-first Search",
+        event: "bidirectionalGreedyBFS"
       },
       {
         id: "5",
         name: "Breadth First Search",
         event: "bfs"
-      },
-      {
-        id: "6",
-        name: "Depth First Search",
       },
     ],
   },

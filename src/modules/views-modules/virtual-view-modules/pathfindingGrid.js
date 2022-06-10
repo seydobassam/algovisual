@@ -3,6 +3,7 @@ import { onMounted, watch } from "vue";
 import { AlgoUtil } from "../../../algos/algo-utility/alog-util";
 import { astar } from "../../../algos/pathfinding-algos/astart";
 import { bfs } from "../../../algos/pathfinding-algos/bfs";
+import { bidirectionalGreedyBFS } from "../../../algos/pathfinding-algos/bidirectionalBfs";
 import { dijkstra } from "../../../algos/pathfinding-algos/dijkstra";
 import { greedyBFS } from "../../../algos/pathfinding-algos/greedyBFS";
 import { NodeType } from "../../../constants/Node-type";
@@ -12,9 +13,9 @@ import toolbar from "../toolbar";
 
 const state = reactive({
   grid: [],
-  visitedNodes: [],
   startNode: GraphNode,
   finishNode: GraphNode,
+  isVisitedNodes: false,
   isFreeze: false,
   isLoading: true,
 });
@@ -99,10 +100,6 @@ export default function pathfindingGrid() {
       if (state.isFreeze) return;
       resetVirtualizedNodes();
       runAlgo(value.next().value);
-      setComponentFreeze(true);
-      await virtualizeNodes();
-      await virtualizeShortestPath();
-      setComponentFreeze(false);
     }
   );
 
@@ -111,64 +108,66 @@ export default function pathfindingGrid() {
       case "dijkstra":
         runDijkstraAlgo();
         break;
-      case "bfs":
-        runBfsAlgo();
-        break;
       case "astar":
         runAstarAlgo();
         break;
       case "greedyBFS":
         runGreedyBFS();
         break;
+      case "bidirectionalGreedyBFS":
+        runBidirectionalGreedyBFS();
+        break;
+      case "bfs":
+        runBfsAlgo();
+        break;
     }
   }
 
-  function runDijkstraAlgo() {
-    state.visitedNodes = dijkstra(
-      state.grid,
-      state.startNode,
-      state.finishNode
-    );
+  async function runDijkstraAlgo() {
+   const visitedNodes = dijkstra(state.grid, state.startNode, state.finishNode);
+   await runVirtualizer(visitedNodes);
   }
 
-  function runBfsAlgo() {
-    state.visitedNodes = bfs(state.grid, state.startNode, state.finishNode);
+  async function runAstarAlgo() {
+    const visitedNodes = astar(state.grid, state.startNode, state.finishNode);
+    await runVirtualizer(visitedNodes);
   }
 
-  function runAstarAlgo() {
-    state.visitedNodes = astar(state.grid, state.startNode, state.finishNode);
+  async function runGreedyBFS() {
+    const visitedNodes = greedyBFS(state.grid, state.startNode, state.finishNode);
+    await runVirtualizer(visitedNodes);
   }
 
-  function runGreedyBFS() {
-    state.visitedNodes = greedyBFS(state.grid, state.startNode, state.finishNode);
+  async function runBidirectionalGreedyBFS() {
+    const visitedNodes = bidirectionalGreedyBFS(state.grid, state.startNode, state.finishNode);
+    await runBidirectionalVirtualizer(visitedNodes);
   }
 
-  function setComponentFreeze(freeze) {
-    state.isFreeze = freeze;
-    setRunVirtualizeFreeze(freeze);
-    setFreezeClick(freeze);
+  async function runBfsAlgo() {
+    const visitedNodes = bfs(state.grid, state.startNode, state.finishNode);
+    await runVirtualizer(visitedNodes);
   }
 
-  function resetNode(node) {
-    node.isVisited = false;
-    node.isAnimate = false;
-    node.isShortPath = false;
-    node.previousNode = null;
+  async function runVirtualizer(visitedNodes){
+    setNodesVisited(true);
+    const shortestPathNodes = AlgoUtil.getShortestPathFromNode(state.finishNode);
+    await virtualizeVisitedNodes(visitedNodes);
+    await virtualizeShortestPath(shortestPathNodes);
   }
 
-  function resetVirtualizedNodes() {
-    if (state.visitedNodes?.length === 0) return;
-    const grid = state.grid;
-    grid.forEach((row) => {
-      for (const node of row) {
-        resetNode(node);
-      }
-    });
+  async function runBidirectionalVirtualizer(visitedNodes){
+    setNodesVisited(true);
+    const lastStartVisitedNode = AlgoUtil.getLastVisitedNodeByIndex(visitedNodes, 0);
+    const lastFinishVisitedNode = AlgoUtil.getLastVisitedNodeByIndex(visitedNodes, 1);
+    const shortestPathNodes = AlgoUtil.getShortestPathFromBidirectionalNodes(lastStartVisitedNode, lastFinishVisitedNode);
+    virtualizeVisitedNodes(visitedNodes[0]);
+    await virtualizeVisitedNodes(visitedNodes[1]);
+    await virtualizeShortestPath(shortestPathNodes)
   }
 
-  async function virtualizeNodes() {
-    const visitedNodes = state.visitedNodes;
-    if (!visitedNodes?.length) return;
+  async function virtualizeVisitedNodes(visitedNodes) {
+    if (!visitedNodes.length > 0) return;
+    setComponentFreeze(true);
     await new Promise((resolve) => {
       visitedNodes.forEach((node, index) => {
         setTimeout(() => {
@@ -180,9 +179,8 @@ export default function pathfindingGrid() {
     });
   }
 
-  async function virtualizeShortestPath() {
-    const shortestPathNodes = AlgoUtil.getShortestPathNodes(state.finishNode);
-    if (shortestPathNodes?.length <= 1) return;
+  async function virtualizeShortestPath(shortestPathNodes) {
+    if (!shortestPathNodes.length) return;
     await new Promise((resolve) => {
       shortestPathNodes.forEach((node, index) => {
         setTimeout(() => {
@@ -192,6 +190,35 @@ export default function pathfindingGrid() {
         }, 100 * index);
       });
     });
+    setComponentFreeze(false);
+  }
+
+  function resetVirtualizedNodes() {
+    if (!state.isVisitedNodes) return;
+    const grid = state.grid;
+    grid.forEach((row) => {
+      for (const node of row) {
+        resetNode(node);
+      }
+    });
+    setNodesVisited(false);
+  }
+
+  function resetNode(node) {
+    node.isVisited = false;
+    node.isAnimate = false;
+    node.isShortPath = false;
+    node.previousNode = null;
+  }
+
+  function setNodesVisited(visited){
+    state.isVisitedNodes = visited;
+  }
+
+  function setComponentFreeze(freeze) {
+    state.isFreeze = freeze;
+    setRunVirtualizeFreeze(freeze);
+    setFreezeClick(freeze);
   }
 
   return {
