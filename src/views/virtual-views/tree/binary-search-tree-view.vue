@@ -8,10 +8,18 @@
           <span class="visited-nodes">{{ visitedNodes }}</span>
         </span>
         <div>
-          <button class="custom-btn btn-10" @click="clearTree">
+          <button
+            :class="[isFreeze === true ? 'disable-button' : 'btn-10']"
+            @click="clearTree"
+          >
             Clear Tree
           </button>
-          <button class="custom-btn btn-10" @click="newTree">New Tree</button>
+          <button
+            :class="[isFreeze === true ? 'disable-button' : 'btn-10']"
+            @click="newTree"
+          >
+            New Tree
+          </button>
         </div>
       </div>
     </div>
@@ -25,11 +33,9 @@ import binarySearchTree from "../../../modules/views-modules/virtual-view-module
 export default {
   name: "BinarySearchTree",
   setup() {
-    const { visitedNodes, initBinaryTree, clearTree, newTree } =
-      binarySearchTree();
-    initBinaryTree();
+    const { visitedNodes, isFreeze, clearTree, newTree } = binarySearchTree();
 
-    return { visitedNodes, clearTree, newTree };
+    return { visitedNodes, isFreeze, clearTree, newTree };
   },
 };
 </script>
@@ -75,11 +81,26 @@ export default {
   margin-right: 15px;
 }
 
+.disable-button {
+  cursor: not-allowed;
+  pointer-events: none;
+  transition: 1s;
+  border: 3px solid goldenrod;
+  font-family: "Lato", sans-serif;
+  width: 130px;
+  height: 40px;
+  cursor: pointer;
+  background-color: goldenrod;
+  color: #1d1f1d;
+  font-weight: bold;
+}
+
 button {
   margin: 20px;
   outline: none;
 }
 .btn-10 {
+  transition: 1s;
   border: 3px solid #1d1f1d;
   font-family: "Lato", sans-serif;
   width: 130px;
@@ -99,7 +120,7 @@ button {
   transform-box: fill-box;
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
-  animation-duration: 5s;
+  animation-duration: 4s;
   animation-direction: alternate;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
@@ -109,12 +130,12 @@ button {
 
 @keyframes dash {
   0% {
-   stroke-dasharray: 1000;
+    stroke-dasharray: 1000;
     stroke: black;
   }
   to {
     stroke-dashoffset: 0;
-     stroke: black;
+    stroke: black;
   }
 }
 </style>
