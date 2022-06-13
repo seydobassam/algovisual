@@ -184,6 +184,7 @@ export default function binarySearchTree() {
   }
 
   function setFreeze(freeze) {
+    binaryTreeDrawer().setFreeze(freeze);
     setRunVirtualizeFreeze(freeze);
     tree.isFreeze = freeze;
   }

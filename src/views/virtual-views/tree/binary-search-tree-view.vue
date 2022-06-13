@@ -93,6 +93,7 @@ export default {
   background-color: goldenrod;
   color: #1d1f1d;
   font-weight: bold;
+  border-radius: 3px;
 }
 
 button {
@@ -100,6 +101,7 @@ button {
   outline: none;
 }
 .btn-10 {
+  border-radius: 3px;
   transition: 1s;
   border: 3px solid #1d1f1d;
   font-family: "Lato", sans-serif;
