@@ -9,7 +9,7 @@ export default function searchList() {
   function createSquareList() {
     // FIXME: use dynamic rows 
     const fixedSizeRows = 6;
-    const columns = _getColumns();
+    const columns = getColumns();
     let squareList = []
     for (var row = 0; row < fixedSizeRows; row++) {
       for (var col = 0; col < columns; ++col) {
@@ -21,7 +21,7 @@ export default function searchList() {
     state.squareList = squareList;
   }
 
-  function _getColumns(){
+  function getColumns(){
     return Math.floor(getListWidth() / 174.5);
   }
 
