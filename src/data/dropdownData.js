@@ -1,5 +1,32 @@
 export const dropdownData = [
   {
+    id: 2,
+    name: "Search",
+    component: "List",
+    algorithms: [
+      {
+        id: "1",
+        name: "Linear Search",
+        event: "runLinearSearch",
+      },
+      {
+        id: "2",
+        name: "Binary Search",
+        event: "runBinarySearch",
+      },
+      {
+        id: "3",
+        name: "Jump Search",
+        event: "runJumpSearch",
+      },
+      {
+        id: "4",
+        name: "Fibonacci Search",
+        event: "runFibonacciSearch",
+      },
+    ],
+  },
+  {
     id: 1,
     name: "Binary Tree",
     component: "BinarySearchTree",
@@ -60,33 +87,6 @@ export const dropdownData = [
         name: "Breadth First Search",
         event: "bfs",
         info: ""
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "Search",
-    component: "List",
-    algorithms: [
-      {
-        id: "1",
-        name: "Linear Search",
-        event: "runLinearSearch",
-      },
-      {
-        id: "2",
-        name: "Binary Search",
-        event: "runBinarySearch",
-      },
-      {
-        id: "3",
-        name: "Jump Search",
-        event: "runJumpSearch",
-      },
-      {
-        id: "4",
-        name: "Fibonacci Search",
-        event: "runFibonacciSearch",
       },
     ],
   },

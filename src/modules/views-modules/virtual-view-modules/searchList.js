@@ -17,7 +17,6 @@ export default function searchList() {
         squareList.push(square);
       }
     }
-    console.log(squareList);
     state.squareList = squareList;
   }
 
