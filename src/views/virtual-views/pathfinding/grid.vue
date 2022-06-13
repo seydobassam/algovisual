@@ -6,9 +6,24 @@
         <div class="grid-panel-details">
           <div class="algo-info"></div>
           <div class="grid-buttons">
-            <button class="btn-10" @click="clearWalls">Clear Walls</button>
-            <button class="btn-10" @click="clearPaths">Clear Path</button>
-            <button class="btn-10" @click="resetGrid">Reset Grid</button>
+            <button
+              :class="[isFreeze === true ? 'disable-button' : 'btn-10']"
+              @click="clearWalls"
+            >
+              Clear Walls
+            </button>
+            <button
+              :class="[isFreeze === true ? 'disable-button' : 'btn-10']"
+              @click="clearPaths"
+            >
+              Clear Path
+            </button>
+            <button
+              :class="[isFreeze === true ? 'disable-button' : 'btn-10']"
+              @click="resetGrid"
+            >
+              Reset Grid
+            </button>
           </div>
         </div>
       </div>
@@ -71,7 +86,7 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
 
 .grid-container {
   position: fixed;
@@ -99,7 +114,7 @@ export default {
 .algo-info {
   color: #34495e;
   padding: 15px 25px 15px 25px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font: bold;
 }
 
@@ -107,11 +122,27 @@ export default {
   display: flex;
 }
 
+.disable-button {
+  cursor: not-allowed;
+  pointer-events: none;
+  transition: 1s;
+  border: 3px solid goldenrod;
+  font-family: "Lato", sans-serif;
+  width: 130px;
+  height: 40px;
+  cursor: pointer;
+  background-color: goldenrod;
+  color: #1d1f1d;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
 button {
   margin: 20px;
   outline: none;
 }
 .btn-10 {
+  transition: 1s;
   border: 3px solid #1d1f1d;
   font-family: "Lato", sans-serif;
   width: 130px;
