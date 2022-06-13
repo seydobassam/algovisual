@@ -162,7 +162,7 @@ export default function pathfindingGrid() {
     setNodesVisited(true);
     virtualizeVisitedNodes(visitedNodes[0]);
     await virtualizeVisitedNodes(visitedNodes[1]);
-    if (visitedNodes[2]) return;
+    if (!visitedNodes[2]) return;
     const lastStartVisitedNode = AlgoUtil.getLastVisitedNodeByIndex(visitedNodes, 0);
     const lastFinishVisitedNode = AlgoUtil.getLastVisitedNodeByIndex(visitedNodes, 1);
     const shortestPathNodes = AlgoUtil.getShortestPathFromBidirectionalNodes(lastStartVisitedNode, lastFinishVisitedNode);
