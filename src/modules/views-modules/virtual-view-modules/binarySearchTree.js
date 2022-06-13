@@ -36,7 +36,8 @@ export default function binarySearchTree() {
     binaryTreeDrawer().selectNode(tree.binaryTree.root);
     selectRootNode(tree.binaryTree.root);
     binaryTreeDrawer().onNodeClick((node) => {
-      selectRootNode(node.data);
+      if (tree.isFreeze) return;
+      selectRootNode(node?.data);
     });
   }
 
