@@ -17,6 +17,7 @@ export default function binarySearchTree() {
     height: window.innerHeight - 135,
     linkStyleOptions: {
       strokeWidth: "5px",
+      addAnimationPaths: true,
     },
     nodeStyleOptions: {
       strokeWidth: "5px",
@@ -34,8 +35,10 @@ export default function binarySearchTree() {
     addNodesToTree(15, 30, 99);
     addNodesToTree(15, 101, 200);
     binaryTreeDrawer().draw("#binarySearchTree", tree.binaryTree, treeOptions);
+    binaryTreeDrawer().selectNode(tree.binaryTree.root);
+    selectRootNode(tree.binaryTree.root);
     binaryTreeDrawer().onNodeClick((node) => {
-      tree.root = node?.data;
+      selectRootNode(node);
     });
   }
 
@@ -44,6 +47,10 @@ export default function binarySearchTree() {
     for (let i = 0; i < n; i++) {
       tree.binaryTree.addNode(~~(Math.random() * (max - min + 1)) + min);
     }
+  }
+
+  function selectRootNode(node) {
+    tree.root = node;
   }
 
   function newTree() {
@@ -142,12 +149,16 @@ export default function binarySearchTree() {
   }
 
   async function virtualizeNode(node) {
-    await binaryTreeDrawer().animateNode(node.value, 300).end();
+    binaryTreeDrawer().animateNode(node.value, {
+      animationClass: "path",
+    });
   }
 
   async function virtualizeNodePath(node) {
     if (node.value === tree.root.value) return;
-    await binaryTreeDrawer().animatePath(node.value, 300).end();
+    binaryTreeDrawer().animatePath(node.value, {
+      animationClass: "path",
+    });
   }
 
   return {
