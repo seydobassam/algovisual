@@ -1,5 +1,6 @@
 import { reactive, toRefs } from "@vue/reactivity";
 import { onMounted, watch } from "vue";
+import { SquareType } from "../../../constants/square-type";
 import Square from "../../../models/square-model";
 import toolbar from "../toolbar";
 
@@ -13,6 +14,7 @@ export default function searchList() {
     left: null,
     right: null,
     middle: null,
+    jump: null,
     foundAt: null,
   });
 
@@ -49,9 +51,10 @@ export default function searchList() {
         await runLinearSearchAlgo(state.squareList, 5);
         break;
       case "binarySearch":
-        await runBinarySearchAlgo(state.squareList, 25);
+        await runBinarySearchAlgo(state.squareList, 5);
         break;
       case "jumpSearch":
+        console.log(runJumpSearchAlgo(state.squareList, 37));
         break;
       case "fibonacciSearch":
         break;
@@ -63,10 +66,11 @@ export default function searchList() {
     for (let i = 0; i < array.length; i++) {
       const value = array[i].value;
       if (value === targetValue) {
-        setSquareFound(i);
+        setStateFoundAt(i);
+        setSquareType(i, SquareType.found);
         return i;
       } else {
-        setSquareDiscardByIndex(i, true);
+        setSquareType(i, SquareType.discard);
         await wait(800);
       }
     }
@@ -86,7 +90,7 @@ export default function searchList() {
       setStateLeft(left);
       setStateRight(right);
       setStateMiddle(middle);
-      setSquareMiddle(middle, true);
+      setSquareType(middle, SquareType.middle);
       await wait(1000);
 
       if (squareValue === targetValue) {
@@ -96,8 +100,8 @@ export default function searchList() {
           setSquaresDiscard(left, middle);
           await wait(800);
         }
-        setSquareDiscardByIndex(middle, false);
-        setSquareFound(middle);
+        setStateFoundAt(middle);
+        setSquareType(middle, SquareType.found);
         return middle;
       } else if (targetValue < squareValue) {
         setSquaresDiscard(middle + 1, right + 1);
@@ -112,18 +116,58 @@ export default function searchList() {
     return -1;
   }
 
+  async function runJumpSearchAlgo(array, target) {
+    let len = array.length;
+    let jump = Math.floor(Math.sqrt(len));
+    let start = 0,
+      currentJump = jump;
+
+    // virtualize first block, from start to the jump.
+    setStateLeft(start);
+    setStateJump(currentJump);
+    setSquareType(start, SquareType.left);
+    setSquareType(currentJump, SquareType.jump);
+    await wait(1100);
+
+    while (array[Math.min(currentJump, len) - 1].value < target) {
+      setSquaresDiscard(start, currentJump);
+      await wait(800);
+      start = currentJump;
+      currentJump += jump;
+      setStateLeft(start);
+      setStateJump(currentJump);
+      setSquareType(start, SquareType.left);
+      setSquareType(currentJump, SquareType.jump);
+      await wait(1100);
+      if (start >= len) return -1;
+    }
+
+    for (let i = start; i < currentJump; i++) {
+      const square = array[i];
+      if (square.value === target) {
+        setStateFoundAt(i);
+        setSquareType(i, SquareType.found);
+        return i;
+      } else if (square.type === null) {
+        setSquareType(i, SquareType.discard);
+        await wait(700);
+      }
+    }
+
+    return -1;
+  }
+
   function resetState() {
     setStateLeft(null);
     setStateMiddle(null);
+    setStateJump(null);
     setStateRight(null);
     setStateFoundAt(null);
   }
 
   function resetSquaresState() {
     for (const square of state.squareList) {
-      square.isMid = false;
-      square.isDiscard = false;
-      square.isFound = false;
+      square.type = null;
     }
     setAlgoStarted(false);
   }
@@ -134,21 +178,12 @@ export default function searchList() {
 
   function setSquaresDiscard(from, to) {
     for (let i = from; i < to; i++) {
-      setSquareDiscardByIndex(i, true);
+      setSquareType(i, SquareType.discard);
     }
   }
 
-  function setSquareDiscardByIndex(index, isDiscard) {
-    state.squareList[index].isDiscard = isDiscard;
-  }
-
-  function setSquareMiddle(index, isMid) {
-    state.squareList[index].isMid = isMid;
-  }
-
-  function setSquareFound(index) {
-    setStateFoundAt(index);
-    state.squareList[index].isFound = true;
+  function setSquareType(index, type) {
+    state.squareList[index].type = type;
   }
 
   function setStateLeft(val) {
@@ -157,6 +192,10 @@ export default function searchList() {
 
   function setStateMiddle(val) {
     state.middle = val;
+  }
+
+  function setStateJump(val) {
+    state.jump = val;
   }
 
   function setStateRight(val) {

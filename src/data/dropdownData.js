@@ -5,6 +5,11 @@ export const dropdownData = [
     component: "List",
     algorithms: [
       {
+        id: "3",
+        name: "Jump Search",
+        event: "jumpSearch",
+      },
+      {
         id: "1",
         name: "Linear Search",
         event: "linearSearch",
@@ -13,11 +18,6 @@ export const dropdownData = [
         id: "2",
         name: "Binary Search",
         event: "binarySearch",
-      },
-      {
-        id: "3",
-        name: "Jump Search",
-        event: "jumpSearch",
       },
       {
         id: "4",

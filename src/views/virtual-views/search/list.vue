@@ -9,6 +9,9 @@
           <div v-show="middle !== null" class="info">
             Middle = <span>{{ middle }}</span>
           </div>
+           <div v-show="jump !== null" class="info-found">
+            Jump At = <span>{{ jump }}</span>
+          </div>
           <div v-show="right !== null" class="info">
             High = <span>{{ right }}</span>
           </div>

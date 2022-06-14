@@ -2,14 +2,17 @@
   <div
     class="square"
     :class="{
-      'middle-square': square.isMid,
-      'discard-square': square.isDiscard,
-      'found-square': square.isFound,
+      'middle-square':
+        square.type === 'middle' ||
+        square.type === 'left' ||
+        square.type === 'jump',
+      'discard-square': square.type === 'discard',
+      'found-square': square.type === 'found',
     }"
   >
     <span
       :class="{
-        strike: square.isDiscard,
+        strike: square.type === 'discard',
       }"
       >{{ square.value }}</span
     >
@@ -105,12 +108,12 @@ export default {
 @keyframes foundSquare {
   0% {
     transform: scale(1.1);
-     background-color: #ffeba7;
+    background-color: #ffeba7;
   }
 
   20% {
     transform: scale(0.3);
-     background-color: #ffeba7;
+    background-color: #ffeba7;
   }
 
   50% {
