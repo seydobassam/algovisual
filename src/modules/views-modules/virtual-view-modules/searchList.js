@@ -220,6 +220,10 @@ export default function searchList() {
   }
 
   function selectSquare(square){
+    if (state.isAlgoStarted) {
+      resetState();
+      resetSquaresState();
+    }
     state.selectedSquare = square;
   }
 
