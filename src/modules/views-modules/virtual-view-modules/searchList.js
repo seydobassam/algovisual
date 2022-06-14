@@ -9,6 +9,7 @@ export default function searchList() {
   const state = reactive({
     squareList: [],
     isAlgoStarted: false,
+    isFreeze: false,
     left: null,
     right: null,
     middle: null,
@@ -40,20 +41,22 @@ export default function searchList() {
     }
   );
 
-  function runAlgo(algo) {
+  async function runAlgo(algo) {
     setAlgoStarted(true);
+    setRunVirtualizeFreeze(true);
     switch (algo) {
       case "linearSearch":
-        runLinearSearchAlgo(state.squareList, 5);
+        await runLinearSearchAlgo(state.squareList, 5);
         break;
       case "binarySearch":
-        runBinarySearchAlgo(state.squareList, 25);
+        await runBinarySearchAlgo(state.squareList, 25);
         break;
       case "jumpSearch":
         break;
       case "fibonacciSearch":
         break;
     }
+    setRunVirtualizeFreeze(false);
   }
 
   async function runLinearSearchAlgo(array, targetValue) {
@@ -61,7 +64,6 @@ export default function searchList() {
       const value = array[i].value;
       if (value === targetValue) {
         setSquareFound(i);
-        await wait(1000);
         return i;
       } else {
         setSquareDiscardByIndex(i, true);
@@ -78,7 +80,6 @@ export default function searchList() {
     var middle;
     while (left <= right) {
       index++;
-
       middle = Math.floor((left + right) / 2);
       var squareValue = array[middle].value;
 
