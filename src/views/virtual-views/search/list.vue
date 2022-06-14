@@ -25,7 +25,7 @@
         <div class="square-list-container">
           <div class="list">
             <td v-for="(square, index) in squareList" :key="index">
-              <Square class="list-item" :square="square" />
+              <Square @click="selectSquare(square)" class="list-item" :square="square" :selected-square="selectedSquare"/>
             </td>
           </div>
         </div>
@@ -45,9 +45,9 @@ export default {
   },
 
   setup() {
-    const { squareListsState, getListWidth } = searchList();
+    const { squareListsState, selectSquare, getListWidth } = searchList();
 
-    return { ...squareListsState, getListWidth };
+    return { ...squareListsState, selectSquare, getListWidth };
   },
 };
 </script>

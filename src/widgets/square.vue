@@ -8,6 +8,7 @@
         square.type === 'jump',
       'discard-square': square.type === 'discard',
       'found-square': square.type === 'found',
+      'selected-sqaure': square === selectedSquare,
     }"
   >
     <span
@@ -27,6 +28,10 @@ export default {
   props: {
     square: {
       type: Square,
+    },
+    selectedSquare: {
+      type: Square,
+      default: null
     },
   },
 };
@@ -49,10 +54,6 @@ export default {
   align-items: center;
 }
 
-.selected {
-  background-color: cornflowerblue;
-}
-
 .strike {
   color: red;
   position: relative;
@@ -66,6 +67,10 @@ export default {
   position: absolute;
   left: -2px;
   top: 46%;
+}
+
+.selected-sqaure {
+  background-color: cornflowerblue;
 }
 
 .middle-square {
@@ -153,6 +158,6 @@ export default {
 
 .square:hover {
   cursor: pointer;
-  background-color: aqua;
+  background-color: cornflowerblue;
 }
 </style>

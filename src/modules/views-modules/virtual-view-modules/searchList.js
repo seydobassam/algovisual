@@ -9,6 +9,7 @@ export default function searchList() {
 
   const state = reactive({
     squareList: [],
+    selectedSquare: null,
     isAlgoStarted: false,
     isFreeze: false,
     left: null,
@@ -26,9 +27,13 @@ export default function searchList() {
   function createSquareList() {
     const columns = getColumns();
     let squareList = [];
-    for (var col = 0; col < 77; ++col) {
-      var r = Math.floor(Math.random() * 100) + 1;
-      if (squareList.indexOf(r) === -1) squareList.push(new Square(r, col));
+    for (var i = 0; i < 77; ++i) {
+      let r = Math.floor(Math.random() * 100) + 1;
+      let square = new Square(r, i);
+      if (i === 7) {
+        selectSquare(square);
+      }
+      if (squareList.indexOf(r) === -1) squareList.push(square);
     }
     squareList.sort((a, b) => a.value - b.value);
     state.squareList = squareList;
@@ -56,7 +61,7 @@ export default function searchList() {
         await runBinarySearchAlgo(state.squareList, 1);
         break;
       case "jumpSearch":
-        console.log(runJumpSearchAlgo(state.squareList, 1));
+        await runJumpSearchAlgo(state.squareList, 1)
         break;
       case "fibonacciSearch":
         break;
@@ -214,6 +219,10 @@ export default function searchList() {
     state.foundAt = val;
   }
 
+  function selectSquare(square){
+    state.selectedSquare = square;
+  }
+
   async function wait(time) {
     await new Promise((resolve) => {
       setTimeout(() => {
@@ -232,7 +241,7 @@ export default function searchList() {
 
   return {
     squareListsState: toRefs(state),
-    createSquareList,
+    selectSquare,
     getListWidth,
   };
 }
