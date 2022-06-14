@@ -55,13 +55,13 @@ export default function searchList() {
     setRunVirtualizeFreeze(true);
     switch (algo) {
       case "linearSearch":
-        await runLinearSearchAlgo(state.squareList, 1);
+        await runLinearSearchAlgo(state.squareList, state.selectedSquare.value);
         break;
       case "binarySearch":
-        await runBinarySearchAlgo(state.squareList, 1);
+        await runBinarySearchAlgo(state.squareList, state.selectedSquare.value);
         break;
       case "jumpSearch":
-        await runJumpSearchAlgo(state.squareList, 1)
+        await runJumpSearchAlgo(state.squareList, state.selectedSquare.value)
         break;
       case "fibonacciSearch":
         break;
