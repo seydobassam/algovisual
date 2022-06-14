@@ -14,6 +14,7 @@ export default function searchList() {
     left: null,
     right: null,
     middle: null,
+    start: null,
     jump: null,
     foundAt: null,
   });
@@ -119,14 +120,11 @@ export default function searchList() {
   async function runJumpSearchAlgo(array, target) {
     let len = array.length;
     let jump = Math.floor(Math.sqrt(len));
-    let start = 0,
-      currentJump = jump;
+    let start = 0;
+    let currentJump = jump;
 
     // virtualize first block, from start to the jump.
-    setStateLeft(start);
-    setStateJump(currentJump);
-    setSquareType(start, SquareType.left);
-    setSquareType(currentJump, SquareType.jump);
+    setJumpBlock(start, currentJump);
     await wait(1100);
 
     while (array[Math.min(currentJump, len) - 1].value < target) {
@@ -134,10 +132,7 @@ export default function searchList() {
       await wait(800);
       start = currentJump;
       currentJump += jump;
-      setStateLeft(start);
-      setStateJump(currentJump);
-      setSquareType(start, SquareType.left);
-      setSquareType(currentJump, SquareType.jump);
+      setJumpBlock(start, currentJump);
       await wait(1100);
       if (start >= len) return -1;
     }
@@ -160,6 +155,7 @@ export default function searchList() {
   function resetState() {
     setStateLeft(null);
     setStateMiddle(null);
+    setStateStart(null);
     setStateJump(null);
     setStateRight(null);
     setStateFoundAt(null);
@@ -174,6 +170,13 @@ export default function searchList() {
 
   function setAlgoStarted(isAlgoStarted) {
     state.isAlgoStarted = isAlgoStarted;
+  }
+
+  function setJumpBlock(start, currentJump) {
+    setStateStart(start);
+    setStateJump(currentJump);
+    setSquareType(start, SquareType.left);
+    setSquareType(currentJump, SquareType.jump);
   }
 
   function setSquaresDiscard(from, to) {
@@ -194,6 +197,10 @@ export default function searchList() {
     state.middle = val;
   }
 
+  function setStateStart(val) {
+    state.start = val;
+  }
+  
   function setStateJump(val) {
     state.jump = val;
   }

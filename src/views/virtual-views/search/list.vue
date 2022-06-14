@@ -6,10 +6,13 @@
           <div v-show="left !== null" class="info">
             Min = <span>{{ left }}</span>
           </div>
+          <div v-show="start !== null" class="info">
+            Start At = <span>{{ start }}</span>
+          </div>
           <div v-show="middle !== null" class="info">
             Middle = <span>{{ middle }}</span>
           </div>
-           <div v-show="jump !== null" class="info-found">
+           <div v-show="jump !== null" class="info">
             Jump At = <span>{{ jump }}</span>
           </div>
           <div v-show="right !== null" class="info">
