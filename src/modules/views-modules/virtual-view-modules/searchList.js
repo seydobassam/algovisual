@@ -26,10 +26,11 @@ export default function searchList() {
   function createSquareList() {
     const columns = getColumns();
     let squareList = [];
-    for (var col = 0; col < 66; ++col) {
-      let square = new Square(col, col);
-      squareList.push(square);
+    for (var col = 0; col < 77; ++col) {
+      var r = Math.floor(Math.random() * 100) + 1;
+      if (squareList.indexOf(r) === -1) squareList.push(new Square(r, col));
     }
+    squareList.sort((a, b) => a.value - b.value);
     state.squareList = squareList;
   }
 
@@ -49,13 +50,13 @@ export default function searchList() {
     setRunVirtualizeFreeze(true);
     switch (algo) {
       case "linearSearch":
-        await runLinearSearchAlgo(state.squareList, 5);
+        await runLinearSearchAlgo(state.squareList, 1);
         break;
       case "binarySearch":
-        await runBinarySearchAlgo(state.squareList, 5);
+        await runBinarySearchAlgo(state.squareList, 1);
         break;
       case "jumpSearch":
-        console.log(runJumpSearchAlgo(state.squareList, 37));
+        console.log(runJumpSearchAlgo(state.squareList, 1));
         break;
       case "fibonacciSearch":
         break;
@@ -200,7 +201,7 @@ export default function searchList() {
   function setStateStart(val) {
     state.start = val;
   }
-  
+
   function setStateJump(val) {
     state.jump = val;
   }

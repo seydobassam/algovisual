@@ -52,9 +52,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .list-container {
-  margin-top: 0.5%;
+  margin-top: 5.5%;
   overflow-x: auto;
   position: fixed;
   top: 0;
