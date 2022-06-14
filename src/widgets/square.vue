@@ -46,29 +46,8 @@ export default {
   align-items: center;
 }
 
-.min {
-  background-color: blueviolet;
-}
-
-.max {
-  background-color: brown;
-}
-
-.mid {
-  background-color: green;
-}
-
-.leaved {
-  background-color: #dddddd;
-  color: red;
-}
-
 .selected {
   background-color: cornflowerblue;
-}
-
-.found {
-  background-color: chocolate;
 }
 
 .strike {
