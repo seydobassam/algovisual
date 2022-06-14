@@ -3,10 +3,18 @@
     <div class="list-view">
       <div class="view" v-bind:style="{ width: getListWidth() + 'px' }">
         <div class="list-info">
-          <div class="info">Duration = <span>231 ms</span></div>
-          <div class="info">Found at index = <span>24</span></div>
-          <div class="info">Time Complexity = <span>O(1)</span></div>
-          <div class="info">Found at = <span>O(1)</span></div>
+          <div v-show="left !== null" class="info">
+            Min = <span>{{ left }}</span>
+          </div>
+          <div v-show="middle !== null" class="info">
+            Middle = <span>{{ middle }}</span>
+          </div>
+          <div v-show="right !== null" class="info">
+            High = <span>{{ right }}</span>
+          </div>
+          <div v-show="foundAt !== null" class="info-found">
+            Found At = <span>{{ foundAt }}</span>
+          </div>
         </div>
         <div class="square-list-container">
           <div class="list">
@@ -31,9 +39,7 @@ export default {
   },
 
   setup() {
-    const { squareListsState, createSquareList, getListWidth } = searchList();
-
-    createSquareList();
+    const { squareListsState, getListWidth } = searchList();
 
     return { ...squareListsState, getListWidth };
   },
@@ -68,13 +74,72 @@ export default {
   margin-left: 10%;
 }
 
+.info-found {
+  margin-left: 10%;
+  font-size: larger;
+  color: black;
+  -webkit-animation: fadein 3s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 3s; /* Firefox < 16 */
+  -ms-animation: fadein 3s; /* Internet Explorer */
+  -o-animation: fadein 3s; /* Opera < 12.1 */
+  animation: fadein 3s;
+}
+
 .info {
   font-size: larger;
-  color: black ;
+  color: black;
+  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 2s; /* Firefox < 16 */
+  -ms-animation: fadein 2s; /* Internet Explorer */
+  -o-animation: fadein 2s; /* Opera < 12.1 */
+  animation: fadein 2s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.info-found > span {
+  color: #09c372;
 }
 
 .info > span {
-   color: cornflowerblue;
+  color: cornflowerblue;
 }
 
 .square-list-container {
@@ -87,7 +152,7 @@ export default {
   margin: 10px;
   display: grid;
   place-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(125px, 100%), 1fr));
   grid-gap: 15px;
   grid-auto-flow: dense;
 }

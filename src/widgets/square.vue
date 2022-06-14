@@ -35,8 +35,8 @@ export default {
 }
 
 .square {
-  height: 125px;
-  width: 125px;
+  height: 100px;
+  width: 100px;
   font-size: larger;
   color: white;
   background-color: rgb(77, 77, 77);
@@ -79,19 +79,21 @@ export default {
 @keyframes middleSqaure {
   0% {
     transform: scale(1);
-    background-color: rgb(61, 178, 255);
+    background-color: #ffeba7;
     border-radius: 20%;
+    color: black;
   }
 
   100% {
     transform: scale(1.1);
-    background-color: rgb(61, 178, 255);
+    background-color: #ffeba7;
+    color: black;
   }
 }
 
 .found-square {
   animation-name: foundSquare;
-  animation-duration: 1.5s;
+  animation-duration: 2.5s;
   animation-timing-function: ease-out;
   animation-delay: 0;
   animation-direction: alternate;
@@ -103,21 +105,21 @@ export default {
 @keyframes foundSquare {
   0% {
     transform: scale(1.1);
-    background-color: rgb(61, 178, 255);
+     background-color: #ffeba7;
   }
 
   20% {
     transform: scale(0.3);
-    background-color: rgb(61, 178, 255);
+     background-color: #ffeba7;
   }
 
   50% {
-    background-color: green;
+    background-color: #09c372;
     transform: scale(1.1);
   }
 
   100% {
-    background-color: green;
+    background-color: #09c372;
     transform: scale(1.1);
   }
 }
@@ -145,8 +147,6 @@ export default {
     background-color: #dddddd;
   }
 }
-
-
 
 .square:hover {
   cursor: pointer;
