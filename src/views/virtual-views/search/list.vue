@@ -6,6 +6,7 @@
           <div class="info">Duration = <span>231 ms</span></div>
           <div class="info">Found at index = <span>24</span></div>
           <div class="info">Time Complexity = <span>O(1)</span></div>
+          <div class="info">Found at = <span>O(1)</span></div>
         </div>
         <div class="square-list-container">
           <div class="list">

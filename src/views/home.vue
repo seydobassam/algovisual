@@ -1,7 +1,7 @@
 <template>
   <Toolbar />
   <keep-alive>
-    <component :is="selectedAlgoType.component" />
+    <component :is="selectedAlgoType.component" :key="selectedAlgoType.id" />
   </keep-alive>
 </template>
 

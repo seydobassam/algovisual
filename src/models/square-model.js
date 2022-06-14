@@ -1,8 +1,13 @@
 export default class Square {
-  constructor(id, index, type) {
-    this.id = id;
+  constructor(value, index) {
     this.index = index;
-    this.type = type;
-    this.visited = false;
+    this.value = value;
+    this.isMin = false;
+    this.isMax = false;
+    this.isMid = false;
+    this.isDiscard = false;
+    this.isFound = false;
+    this.isSelected = false;
+    this.isVisited = false;
   }
 }
