@@ -7,22 +7,22 @@ export const dropdownData = [
       {
         id: "1",
         name: "Linear Search",
-        event: "runLinearSearch",
+        event: "linearSearch",
       },
       {
         id: "2",
         name: "Binary Search",
-        event: "runBinarySearch",
+        event: "binarySearch",
       },
       {
         id: "3",
         name: "Jump Search",
-        event: "runJumpSearch",
+        event: "jumpSearch",
       },
       {
         id: "4",
         name: "Fibonacci Search",
-        event: "runFibonacciSearch",
+        event: "fibonacciSearch",
       },
     ],
   },
