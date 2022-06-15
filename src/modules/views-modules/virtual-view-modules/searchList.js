@@ -235,6 +235,10 @@ export default function searchList() {
     });
   }
 
+  function getListWidth() {
+    return Math.floor(window.innerWidth * 0.8);
+  }
+
   return {
     squareListsState: toRefs(state),
     selectSquare,
