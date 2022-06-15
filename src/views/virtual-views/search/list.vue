@@ -3,7 +3,7 @@
     <div class="list-details" v-bind:style="{ width: getListWidth() + 'px' }">
       <div>
         <img src="../../../assets/squares/sem-middle-square.png" />
-        <span>Start / End / Middle Square</span>
+        <span>Start / Jump / Middle Square</span>
       </div>
       <div>
         <img src="../../../assets/squares/discard-square.png" />
