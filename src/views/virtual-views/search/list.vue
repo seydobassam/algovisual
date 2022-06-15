@@ -2,23 +2,23 @@
   <div class="list-details-container">
     <div class="list-details" v-bind:style="{ width: getListWidth() + 'px' }">
       <div>
-        <img src="../../../assets/squares/sem-middle-square.png" />
+        <img src="../../../assets/list/squares/sem-middle-square.png" />
         <span>Start / Jump / Middle Square</span>
       </div>
       <div>
-        <img src="../../../assets/squares/discard-square.png" />
+        <img src="../../../assets/list/squares/discard-square.png" />
         <span>Discard Square</span>
       </div>
       <div>
-        <img src="../../../assets/squares/selected-square.png" />
+        <img src="../../../assets/list/squares/selected-square.png" />
         <span>Selected Square</span>
       </div>
       <div>
-        <img src="../../../assets/squares/unvisited-square.png" />
+        <img src="../../../assets/list/squares/unvisited-square.png" />
         <span>Unvisited Square</span>
       </div>
       <div>
-        <img src="../../../assets/squares/found-square.png" />
+        <img src="../../../assets/list/squares/found-square.png" />
         <span>Found Square</span>
       </div>
       <div>
