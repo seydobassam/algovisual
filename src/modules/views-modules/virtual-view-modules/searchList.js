@@ -25,7 +25,6 @@ export default function searchList() {
   });
 
   function createSquareList() {
-    const columns = getColumns();
     let squareList = [];
     for (var i = 0; i < 77; ++i) {
       let r = Math.floor(Math.random() * 100) + 1;
@@ -234,14 +233,6 @@ export default function searchList() {
         resolve();
       }, time);
     });
-  }
-
-  function getColumns() {
-    return Math.floor(getListWidth() / 174.5);
-  }
-
-  function getListWidth() {
-    return Math.floor(window.innerWidth * 0.8);
   }
 
   return {
