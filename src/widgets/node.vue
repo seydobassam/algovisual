@@ -30,12 +30,12 @@ export default {
 }
 
 .node-start {
-  background-image: url("../assets/point.png");
+  background-image: url("../assets/pathfinding/point.png");
   background-repeat: no-repeat;
 }
 
 .node-finish {
-  background-image: url("../assets/city.png");
+  background-image: url("../assets/pathfinding/city.png");
   background-repeat: no-repeat;
   background-position: center;
 }

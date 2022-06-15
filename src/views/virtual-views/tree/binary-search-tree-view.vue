@@ -3,7 +3,7 @@
     <div class="tree-infos-container">
       <div class="tree-infos">
         <span class="nodes-display">
-          <img src="./../../../assets/node.png" />
+          <img src="./../../../assets/tree/node.png" />
           <span class="visited-nodes-label">Visited Nodes = </span>
           <span class="visited-nodes">{{ visitedNodes }}</span>
         </span>
