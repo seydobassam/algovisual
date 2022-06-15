@@ -1,4 +1,32 @@
 <template>
+  <div class="list-details-container">
+    <div class="list-details" v-bind:style="{ width: getListWidth() + 'px' }">
+      <div>
+        <img src="../../../assets/squares/sem-middle-square.png" />
+        <span>Start / End / Middle Square</span>
+      </div>
+      <div>
+        <img src="../../../assets/squares/discard-square.png" />
+        <span>Discard Square</span>
+      </div>
+      <div>
+        <img src="../../../assets/squares/selected-square.png" />
+        <span>Selected Square</span>
+      </div>
+      <div>
+        <img src="../../../assets/squares/unvisited-square.png" />
+        <span>Unvisited Square</span>
+      </div>
+      <div>
+        <img src="../../../assets/squares/found-square.png" />
+        <span>Found Square</span>
+      </div>
+      <div>
+        <button :class="[isFreeze === true ? 'disable-button' : 'btn-10']">Clear List</button>
+        <button :class="[isFreeze === true ? 'disable-button' : 'btn-10']">New List</button>
+      </div>
+    </div>
+  </div>
   <div class="list-container">
     <div class="list-view">
       <div class="view" v-bind:style="{ width: getListWidth() + 'px' }">
@@ -12,7 +40,7 @@
           <div v-show="middle !== null" class="info">
             Middle = <span>{{ middle }}</span>
           </div>
-           <div v-show="jump !== null" class="info">
+          <div v-show="jump !== null" class="info">
             Jump At = <span>{{ jump }}</span>
           </div>
           <div v-show="right !== null" class="info">
@@ -25,7 +53,12 @@
         <div class="square-list-container">
           <div class="list">
             <td v-for="(square, index) in squareList" :key="index">
-              <Square @click="selectSquare(square)" class="list-item" :square="square" :selected-square="selectedSquare"/>
+              <Square
+                @click="selectSquare(square)"
+                class="list-item"
+                :square="square"
+                :selected-square="selectedSquare"
+              />
             </td>
           </div>
         </div>
@@ -53,10 +86,78 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap");
+
+.list-details-container {
+  width: 100;
+  display: flex;
+  justify-content: center;
+  margin-top: 3%;
+}
+
+.list-details {
+  width: 1632px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-details :first-of-type {
+  margin-left: 10px;
+}
+
+.list-details > div {
+  display: flex;
+  align-items: center;
+}
+
+.list-details > div > span {
+  font-family: "Roboto", sans-serif;
+  font-weight: 450;
+  font-size: 17px;
+  margin-left: 13px;
+}
+
+button {
+  margin: 20px;
+  outline: none;
+}
+
+.disable-button {
+  cursor: not-allowed;
+  pointer-events: none;
+  transition: 1s;
+  border: 3px solid goldenrod;
+  font-family: "Lato", sans-serif;
+  width: 130px;
+  height: 40px;
+  cursor: pointer;
+  background-color: goldenrod;
+   color: #dddddd;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
+.btn-10 {
+  border-radius: 3px;
+  transition: 1s;
+  border: 3px solid #1d1f1d;
+  font-family: "Lato", sans-serif;
+  width: 130px;
+  height: 40px;
+  cursor: pointer;
+  background: #1d1f1d;
+  color: white;
+  font-weight: bold;
+}
+.btn-10:hover {
+  color: #ffeba7;
+  font-weight: bold;
+}
+
 .list-container {
-  margin-top: 5.5%;
+  margin-top: 1.5%;
   overflow-x: auto;
-  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;

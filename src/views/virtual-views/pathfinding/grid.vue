@@ -132,7 +132,7 @@ export default {
   height: 40px;
   cursor: pointer;
   background-color: goldenrod;
-  color: #1d1f1d;
+  color: #dddddd;
   font-weight: bold;
   border-radius: 3px;
 }
