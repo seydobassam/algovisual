@@ -92,7 +92,7 @@ export default {
   width: 100;
   display: flex;
   justify-content: center;
-  margin-top: 3%;
+  margin-top: 1%;
 }
 
 .list-details {
