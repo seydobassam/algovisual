@@ -173,6 +173,16 @@ export default function searchList() {
     setAlgoStarted(false);
   }
 
+  function resetList() {
+    resetState();
+    resetSquaresState();
+  }
+
+  function newList() {
+    resetState();
+    createSquareList();
+  }
+
   function setAlgoStarted(isAlgoStarted) {
     state.isAlgoStarted = isAlgoStarted;
   }
@@ -246,6 +256,8 @@ export default function searchList() {
 
   return {
     squareListsState: toRefs(state),
+    resetList,
+    newList,
     selectSquare,
     getListWidth,
   };

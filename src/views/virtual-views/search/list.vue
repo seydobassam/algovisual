@@ -22,8 +22,8 @@
         <span>Found Square</span>
       </div>
       <div>
-        <button :class="[isFreeze === true ? 'disable-button' : 'btn-10']">Clear List</button>
-        <button :class="[isFreeze === true ? 'disable-button' : 'btn-10']">New List</button>
+        <button @click="resetList" :class="[isFreeze === true ? 'disable-button' : 'btn-10']">Reset List</button>
+        <button @click="newList" :class="[isFreeze === true ? 'disable-button' : 'btn-10']">New List</button>
       </div>
     </div>
   </div>
@@ -78,9 +78,9 @@ export default {
   },
 
   setup() {
-    const { squareListsState, selectSquare, getListWidth } = searchList();
+    const { squareListsState, resetList, newList, selectSquare, getListWidth } = searchList();
 
-    return { ...squareListsState, selectSquare, getListWidth };
+    return { ...squareListsState, resetList, newList, selectSquare, getListWidth };
   },
 };
 </script>
