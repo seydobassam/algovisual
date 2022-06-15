@@ -4,7 +4,26 @@
     <div class="grid">
       <div class="grid-panel">
         <div class="grid-panel-details">
-          <div class="algo-info"></div>
+          <div class="algo-info">
+            <img src="../../../assets/pathfinding/point.png" />
+            <span>Start Node</span>
+          </div>
+          <div class="algo-info">
+            <img src="../../../assets/pathfinding/city.png" />
+            <span>Finish Node</span>
+          </div>
+          <div class="algo-info">
+            <img src="../../../assets/pathfinding/nodes/path-node.png" />
+            <span>Path Node</span>
+          </div>
+          <div class="algo-info">
+            <img src="../../../assets/pathfinding/nodes/wall-node.png" />
+            <span>Wall Node</span>
+          </div>
+          <div class="algo-info">
+            <img src="../../../assets/pathfinding/nodes/visited-node.png" />
+            <span>Visited Node</span>
+          </div>
           <div class="grid-buttons">
             <button
               :class="[isFreeze === true ? 'disable-button' : 'btn-10']"
@@ -109,6 +128,19 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.grid-panel-details > div {
+  display: flex;
+  align-items: center;
+}
+
+.grid-panel-details > div > span {
+  font-family: "Roboto", sans-serif;
+  font-weight: 450;
+  font-size: 17px;
+  margin-left: 13px;
+  margin-left: 15px;
 }
 
 .algo-info {
