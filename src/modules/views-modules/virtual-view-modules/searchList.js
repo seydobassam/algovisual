@@ -61,7 +61,7 @@ export default function searchList() {
         await runBinarySearchAlgo(state.squareList, state.selectedSquare.value);
         break;
       case "jumpSearch":
-        await runJumpSearchAlgo(state.squareList, state.selectedSquare.value)
+        await runJumpSearchAlgo(state.squareList, state.selectedSquare.value);
         break;
       case "fibonacciSearch":
         break;
@@ -145,11 +145,11 @@ export default function searchList() {
 
     for (let i = start; i < currentJump; i++) {
       const square = array[i];
-      if (square.value === target) {
+      if (square?.value === target) {
         setStateFoundAt(i);
         setSquareType(i, SquareType.found);
         return i;
-      } else if (square.type === null) {
+      } else if (square?.type === null) {
         setSquareType(i, SquareType.discard);
         await wait(700);
       }
@@ -192,6 +192,7 @@ export default function searchList() {
   }
 
   function setSquareType(index, type) {
+    if (index < 0 || index > state.squareList.length - 1) return;
     state.squareList[index].type = type;
   }
 
@@ -219,7 +220,7 @@ export default function searchList() {
     state.foundAt = val;
   }
 
-  function selectSquare(square){
+  function selectSquare(square) {
     if (state.isAlgoStarted) {
       resetState();
       resetSquaresState();
