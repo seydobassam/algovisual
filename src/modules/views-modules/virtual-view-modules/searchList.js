@@ -27,7 +27,7 @@ export default function searchList() {
   function createSquareList() {
     let squareList = [];
     for (var i = 0; i < 77; ++i) {
-      let r = Math.floor(Math.random() * 100) + 1;
+      let r = Math.floor(Math.random() * 500) + 1;
       let square = new Square(r, i);
       if (i === 7) {
         selectSquare(square);
