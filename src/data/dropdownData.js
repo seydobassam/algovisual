@@ -5,11 +5,6 @@ export const dropdownData = [
     component: "List",
     algorithms: [
       {
-        id: "3",
-        name: "Jump Search",
-        event: "jumpSearch",
-      },
-      {
         id: "1",
         name: "Linear Search",
         event: "linearSearch",
@@ -20,9 +15,9 @@ export const dropdownData = [
         event: "binarySearch",
       },
       {
-        id: "4",
-        name: "Fibonacci Search",
-        event: "fibonacciSearch",
+        id: "3",
+        name: "Jump Search",
+        event: "jumpSearch",
       },
     ],
   },
@@ -87,34 +82,6 @@ export const dropdownData = [
         name: "Breadth First Search",
         event: "bfs",
         info: ""
-      },
-    ],
-  },
-
-  {
-    id: 4,
-    name: "Sort",
-    component: "charactersSortView",
-    algorithms: [
-      {
-        id: "1",
-        name: "Selection Sort",
-      },
-      {
-        id: "2",
-        name: "Bubble Sort",
-      },
-      {
-        id: "3",
-        name: "Insertion Sort",
-      },
-      {
-        id: "4",
-        name: "Merge Sort",
-      },
-      {
-        id: "5",
-        name: "Quick Sort",
       },
     ],
   },
