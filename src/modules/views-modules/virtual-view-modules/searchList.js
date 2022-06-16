@@ -257,7 +257,7 @@ export default function searchList() {
   }
 
   function getListHeight() {
-    return  Math.floor(window.innerHeight - 400);
+    return  Math.floor(window.innerHeight - 250);
   }
 
   function getWidth() {
