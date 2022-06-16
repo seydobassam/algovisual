@@ -157,6 +157,7 @@ button {
 
 .list-container {
   margin-top: 1.5%;
+  margin-bottom: 2%;
   overflow-x: auto;
   top: 0;
   left: 0;
