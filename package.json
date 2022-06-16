@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "tree-visualization": "^1.0.0",
+    "tree-visualization": "^1.0.3",
     "vue": "^3.2.25"
   },
   "devDependencies": {

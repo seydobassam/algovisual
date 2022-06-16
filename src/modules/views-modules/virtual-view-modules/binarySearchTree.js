@@ -1,4 +1,4 @@
-import { BinaryTree, binaryTreeDrawer } from "binary-tree";
+import { BinaryTree, binaryTreeDrawer } from "tree-visualization";
 import { reactive, computed } from "@vue/reactivity";
 import { watch, onMounted } from "vue";
 import toolbar from "../toolbar";
