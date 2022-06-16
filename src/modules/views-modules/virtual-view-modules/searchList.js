@@ -21,12 +21,14 @@ export default function searchList() {
   });
 
   onMounted(() => {
+    getWidth();
+    getHeight();
     createSquareList();
   });
 
   function createSquareList() {
     let squareList = [];
-    for (var i = 0; i < 104; ++i) {
+    for (var i = 0; i < getSquares(); ++i) {
       let r = Math.floor(Math.random() * 1000) + 1;
       let square = new Square(r, i);
       if (i === 7) {
@@ -254,11 +256,28 @@ export default function searchList() {
     return Math.floor(window.innerWidth * 0.9);
   }
 
+  function getListHeight() {
+    return  Math.floor(window.innerHeight - 400);
+  }
+
+  function getWidth() {
+    return Math.floor((window.innerWidth) / 145);
+  }
+
+  function getHeight() {
+    return  Math.floor(window.innerHeight - 400) / 130;
+  }
+
+  function getSquares() {
+    return Math.floor(getWidth() * getHeight());
+  }
+
   return {
     squareListsState: toRefs(state),
     resetList,
     newList,
     selectSquare,
     getListWidth,
+    getListHeight
   };
 }

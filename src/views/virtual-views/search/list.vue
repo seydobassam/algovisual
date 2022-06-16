@@ -1,6 +1,6 @@
 <template>
   <div class="list-details-container">
-    <div class="list-details" v-bind:style="{ width: getListWidth() + 'px' }">
+    <div class="list-details" v-bind:style="{ width: getListWidth() + 'px'}">
       <div>
         <img src="../../../assets/list/squares/sem-middle-square.png" />
         <span>Start / Jump / Middle Square</span>
@@ -22,14 +22,24 @@
         <span>Found Square</span>
       </div>
       <div>
-        <button @click="resetList" :class="[isFreeze === true ? 'disable-button' : 'btn-10']">Reset List</button>
-        <button @click="newList" :class="[isFreeze === true ? 'disable-button' : 'btn-10']">New List</button>
+        <button
+          @click="resetList"
+          :class="[isFreeze === true ? 'disable-button' : 'btn-10']"
+        >
+          Reset List
+        </button>
+        <button
+          @click="newList"
+          :class="[isFreeze === true ? 'disable-button' : 'btn-10']"
+        >
+          New List
+        </button>
       </div>
     </div>
   </div>
   <div class="list-container">
     <div class="list-view">
-      <div class="view" v-bind:style="{ width: getListWidth() + 'px' }">
+      <div class="view" v-bind:style="{ width: getListWidth() + 'px', height: getListHeight() + 'px'}">
         <div class="list-info">
           <div v-show="left !== null" class="info">
             Min = <span>{{ left }}</span>
@@ -78,9 +88,17 @@ export default {
   },
 
   setup() {
-    const { squareListsState, resetList, newList, selectSquare, getListWidth } = searchList();
+    const { squareListsState, resetList, newList, selectSquare, getListWidth, getListHeight } =
+      searchList();
 
-    return { ...squareListsState, resetList, newList, selectSquare, getListWidth };
+    return {
+      ...squareListsState,
+      resetList,
+      newList,
+      selectSquare,
+      getListWidth,
+      getListHeight
+    };
   },
 };
 </script>
@@ -133,7 +151,7 @@ button {
   height: 40px;
   cursor: pointer;
   background-color: goldenrod;
-   color: #dddddd;
+  color: #dddddd;
   font-weight: bold;
   border-radius: 3px;
 }
@@ -260,7 +278,7 @@ button {
   margin: 10px;
   display: grid;
   place-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(min(125px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(130px, 100%), 1fr));
   grid-gap: 15px;
   grid-auto-flow: dense;
 }
