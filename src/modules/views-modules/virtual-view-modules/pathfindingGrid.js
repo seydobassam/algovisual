@@ -29,7 +29,7 @@ export default function pathfindingGrid() {
     onMouseUp,
   } = nodeModule();
   const { setRunVirtualizeFreeze, toolbarState } = toolbar();
-  const gridHeight = Math.floor(window.innerHeight / 37);
+  const gridHeight = Math.floor(window.innerHeight / 30) - 7.5;
   const gridWidth = Math.floor(window.innerWidth / 31);
 
   onMounted(() => {
