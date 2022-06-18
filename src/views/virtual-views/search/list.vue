@@ -282,4 +282,14 @@ button {
   grid-gap: 15px;
   grid-auto-flow: dense;
 }
+
+@media only screen and (max-width: 1500px) {
+  .list-details > div > span {
+    font-size: 15px;
+  }
+  .btn-10 {
+    width: 115px;
+    height: 40px;
+  }
+}
 </style>
