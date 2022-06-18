@@ -145,7 +145,6 @@ export default {
 
 .algo-info {
   color: #34495e;
-  padding: 15px 25px 15px 25px;
   font-family: "Roboto", sans-serif;
   font: bold;
 }
@@ -199,5 +198,15 @@ button {
 
 .grid-view {
   margin: 200, auto, auto, auto;
+}
+
+@media only screen and (max-width: 1500px) {
+  .grid-panel-details > div > span {
+    font-size: 15px;
+  }
+  .btn-10 {
+    width: 115px;
+    height: 40px;
+  }
 }
 </style>
