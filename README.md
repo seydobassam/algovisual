@@ -3,11 +3,13 @@
 
 ## About
 
-Algovisual is an algorithms visualization project. It can be used to visualize different algorithms such as: **Search algorithm**, **Pathfinding algorithm**, and **Binary tree algorithms**, so you can see how algorithms work and how fast they are and the difference between them. 
+Algovisual is an algorithms visualization project. It can be used to visualize different algorithms such as: **Search algorithm**, **Pathfinding algorithm**, and **Binary tree algorithms**, so you can see how algorithms work and how fast they are and the difference between them.
+
+The Project was made via Vue3 + Vite.
 
 **You can visualize algorithms here:** https://seydobassam.github.io/algovisual/
 
-You are welcome to [report bugs, Features](https://github.com/seydobassam/tree-visualizer/issues) or create pull requests. 
+You are welcome to [report bugs, Features](https://github.com/seydobassam/tree-visualizer/issues) or create pull requests.
 
 ## Algorithms 
 
