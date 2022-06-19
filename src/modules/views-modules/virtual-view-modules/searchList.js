@@ -253,23 +253,24 @@ export default function searchList() {
   }
 
   function getListWidth() {
+   
     return Math.floor(window.innerWidth * 0.9);
   }
 
   function getListHeight() {
-    return  Math.floor(window.innerHeight - 250);
+    return Math.floor(window.innerHeight / 1.3) + 15;
   }
 
   function getWidth() {
-    return Math.floor((window.innerWidth) / 145);
+    return Math.floor(window.innerHeight / 100);
   }
 
   function getHeight() {
-    return  Math.floor(window.innerHeight - 400) / 130;
+    return Math.floor(window.innerHeight / 100);
   }
 
   function getSquares() {
-    return Math.floor(getWidth() * getHeight());
+    return Math.floor(( (getWidth() * getHeight())));
   }
 
   return {
@@ -278,6 +279,6 @@ export default function searchList() {
     newList,
     selectSquare,
     getListWidth,
-    getListHeight
+    getListHeight,
   };
 }
