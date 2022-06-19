@@ -1,20 +1,35 @@
-<h1 align="center"> algovisual </h1>
+<h1 align="center"> Algovisual </h1>
 
 
 ## About
 
-Algovisual is an algorithms visualization project. It can be used to visualize different algorithms such as: **Search algorithm**, **Pathfinding algorithm**, and **Binary tree algorithms**, so you can see how algorithms work and how fast they are and the difference between them.
+Algovisual is an algorithms visualization project. It can be used to visualize different algorithms such as: **Search algorithm**, **Pathfinding algorithm**, and **Binary tree algorithms**, so you can see how algorithms work and how fast they are and the difference between them. 
 
 You are welcome to [report bugs, Features](https://github.com/seydobassam/tree-visualizer/issues) or create pull requests. 
 
 ## Algorithms 
 
 ### Pathfinding algorithms
+- Dijkstra’s Algorithm
+- A* Search Algorithm
+- Greedy Best-first Search
+- Bidirectional Best-first Search
+- Breadth First Search
 
 ### Binary tree Algorithms
+- Depth-first search (DFS) Inorder
+- Depth-first search (DFS) Preorder
+- Depth-first search (DFS) Postorder
+- Breadth-first search (BFS) levelOrder
 
 ### Search algorithms
+- Linear Search
+- Binary Search
+- Jump Search
 
+## Data Structures (Used Data Structures with algorithms)
+- Binary Search Tree 
+- MinHeap 
 
 ## Author
 👤 **Bassam/Martin Seydo**
