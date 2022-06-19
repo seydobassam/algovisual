@@ -44,4 +44,4 @@ Give a ⭐️ if this project helped you!
 ## 📝 License
 
 Copyright © 2022 [Bassam/Martin Seydo](https://github.com/seydobassam).<br />
-This project is licensed under the [MIT](https://github.com/seydobassam/tree-visualizer/blob/master/LICENSE).
+This project is licensed under the [MIT](https://github.com/seydobassam/algovisual/blob/master/LICENSE).
