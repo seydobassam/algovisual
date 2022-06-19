@@ -253,16 +253,15 @@ export default function searchList() {
   }
 
   function getListWidth() {
-   
     return Math.floor(window.innerWidth * 0.9);
   }
 
   function getListHeight() {
-    return Math.floor(window.innerHeight / 1.3) + 15;
+    return Math.floor(window.innerHeight / 1.3);
   }
 
   function getWidth() {
-    return Math.floor(window.innerHeight / 100);
+    return Math.floor(window.innerWidth / 100) / 3 + 2;
   }
 
   function getHeight() {
@@ -270,7 +269,9 @@ export default function searchList() {
   }
 
   function getSquares() {
-    return Math.floor(( (getWidth() * getHeight())));
+    console.log(getWidth());
+    console.log(getHeight());
+    return Math.floor(getWidth() * getHeight());
   }
 
   return {
